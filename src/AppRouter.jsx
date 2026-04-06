@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router'
-import { Dashboard, History, Profile, TopUp, Transfer, LandingPage } from '@pages'
-import { AdminWrapper } from '@/components/layouts'
+import { AdminWrapper, Dashboard, History, Profile, TopUp, Transfer, LandingPage } from '@pages'
 
 function AppRouter() {
   return (
