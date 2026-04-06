@@ -1,5 +1,7 @@
 import { usePageTitle } from "@hooks"
 import { BalanceIcon, IncomeIcon, ExpenseIcon, StonkIcon, DownStonkIcon } from '@components/atoms/icons';
+import { Widget } from '@components/molecules';
+import { listWidget } from '@utils';
 
 function Dashboard() {
   usePageTitle("Dashboard")
@@ -8,44 +10,11 @@ function Dashboard() {
       {/* Main Content */}
         <main className="flex flex-col gap-4 p-3 sm:p-6 sm:gap-6 md:p-8 xl:p-10 2xl:p-12">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <section className="flex flex-col gap-3 p-4 bg-white border border-gray-200 sm:p-6">
-              <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
-                <div className="text-xl text-blue-600">
-                  <BalanceIcon />
-                </div>
-                <span>Balance</span>
-              </div>
-              <h2 className="text-lg font-semibold sm:text-2xl">Rp.120.000</h2>
-              <p className="flex items-center gap-1 text-sm font-medium text-emerald-600">
-                +2% <StonkIcon /> <span className="ml-1 text-gray-500">3 Days Ago</span>
-              </p>
-            </section>
-            
-            <section className="flex flex-col gap-3 p-4 bg-white border border-gray-200 sm:p-6">
-              <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
-                <div className="text-xl text-blue-600">
-                  <IncomeIcon />
-                </div>
-                <span>Income</span>
-              </div>
-              <h2 className="text-lg font-semibold sm:text-2xl">Rp2.120.000</h2>
-              <p className="flex items-center gap-1 text-sm font-medium text-emerald-600">
-                +11.01% <StonkIcon />
-              </p>
-            </section>
-
-            <section className="flex flex-col gap-3 p-4 bg-white border border-gray-200 sm:p-6">
-              <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
-                <div className="text-xl text-blue-600">
-                  <ExpenseIcon />
-                </div>
-                <span>Expense</span>
-              </div>
-              <h2 className="text-lg font-semibold sm:text-2xl">Rp.200.000</h2>
-              <p className="flex items-center gap-1 text-sm font-medium text-red-600">
-                -5.06% <DownStonkIcon />
-              </p>
-            </section>
+            {
+              listWidget.map((widget) => (
+                <Widget key={widget.name} widget={widget} />
+              ))
+            }
           </div>
 
           <section>
