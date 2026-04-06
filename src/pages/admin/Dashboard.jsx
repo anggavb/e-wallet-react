@@ -1,6 +1,6 @@
 import { usePageTitle } from "@hooks"
-import { Widget } from '@components/molecules';
-import { listWidget } from '@utils';
+import { Widget, TransactionHistory } from '@components/molecules';
+import { listWidget, listHistoryTransactions } from '@utils';
 
 function Dashboard() {
   usePageTitle("Dashboard")
@@ -61,86 +61,9 @@ function Dashboard() {
             </div>
             
             <div className="flex flex-col gap-5">
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/robert-fox.png" alt="Robert Fox" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Robert Fox</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Transfer</p>
-                </div>
-                <div className="text-sm font-semibold text-emerald-600">+Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/floyd-miles.png" alt="Floyd Miles" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Floyd Miles</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Send</p>
-                </div>
-                <div className="text-sm font-semibold text-red-600">-Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/ujang.png" alt="Ujang" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Ujang</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Send</p>
-                </div>
-                <div className="text-sm font-semibold text-red-600">-Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/raulemons.png" alt="Raulemons" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Raulemons</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Transfer</p>
-                </div>
-                <div className="text-sm font-semibold text-emerald-600">+Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/reiva.png" alt="Reiva" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Reiva</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Transfer</p>
-                </div>
-                <div className="text-sm font-semibold text-emerald-600">+Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/thobie.png" alt="Thobie" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Thobie</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Send</p>
-                </div>
-                <div className="text-sm font-semibold text-red-600">-Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/buzjany.png" alt="Buzjany" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Buzjany</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Transfer</p>
-                </div>
-                <div className="text-sm font-semibold text-emerald-600">+Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/adisurya.png" alt="Adisurya" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Adisurya</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Send</p>
-                </div>
-                <div className="text-sm font-semibold text-red-600">-Rp50.000</div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img src="/assets/images/dashboard/miguelle.png" alt="Miguelle" className="w-10 h-10 object-cover rounded-xl" />
-                <div className="grow">
-                  <h4 className="text-base font-semibold text-neutral-800">Miguelle</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">Transfer</p>
-                </div>
-                <div className="text-sm font-semibold text-emerald-600">+Rp50.000</div>
-              </div>
+              {listHistoryTransactions.map((transaction) => (
+                <TransactionHistory key={transaction.name} transaction={transaction} />
+              ))}
             </div>
           </div>
         </aside>
