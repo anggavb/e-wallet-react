@@ -1,3 +1,7 @@
 import listMenus from './listMenus';
+import listWidget from './listWidget';
 
-export { listMenus };
+export {
+  listMenus,
+  listWidget,
+};
