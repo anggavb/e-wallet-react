@@ -1,5 +1,4 @@
 import { usePageTitle } from "@hooks"
-import { BalanceIcon, IncomeIcon, ExpenseIcon, StonkIcon, DownStonkIcon } from '@components/atoms/icons';
 import { Widget } from '@components/molecules';
 import { listWidget } from '@utils';
 
