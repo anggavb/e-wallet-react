@@ -1,0 +1,15 @@
+/**
+ * BalanceIcon component that renders the SVG icon for the balance menu item.
+ * @returns {JSX.Element}
+ */
+function BalanceIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 7.99988H2V19.9999H18V7.99988Z" stroke="#2948FF" strokeWidth="2" strokeLinejoin="round"/>
+      <path d="M10 15.9999C11.1045 15.9999 12 15.1045 12 13.9999C12 12.8954 11.1045 11.9999 10 11.9999C8.89545 11.9999 8 12.8954 8 13.9999C8 15.1045 8.89545 15.9999 10 15.9999Z" fill="white" stroke="#2948FF" strokeWidth="2"/>
+      <path d="M12 3.99994H14H22V9.49991V10.8749" stroke="#2948FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
+export default BalanceIcon
