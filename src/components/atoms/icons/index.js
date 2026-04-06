@@ -10,6 +10,7 @@ import IncomeIcon from './IncomeIcon';
 import ExpenseIcon from './ExpenseIcon';
 import StonkIcon from './StonkIcon';
 import DownStonkIcon from './DownStonkIcon';
+import MoneyInsertIcon from "./MoneyInsertIcon";
 
 export {
   DashboardIcon,
@@ -23,4 +24,5 @@ export {
   ExpenseIcon,
   StonkIcon,
   DownStonkIcon,
+  MoneyInsertIcon
 }
