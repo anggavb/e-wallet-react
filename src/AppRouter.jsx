@@ -7,7 +7,7 @@ function AppRouter() {
     <Routes>
       <Route index element={ <LandingPage /> } />
       <Route path="admin" element={ <AdminWrapper /> }>
-        <Route path="dashboard" element={ <Dashboard /> } />
+        <Route index element={ <Dashboard /> } />
         <Route path="transfer" element={ <Transfer /> } />
         <Route path="history" element={ <History /> } />
         <Route path="topup" element={ <TopUp /> } />

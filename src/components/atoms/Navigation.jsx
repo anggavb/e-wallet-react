@@ -18,6 +18,7 @@ function Navigation({ to, children }) {
             : "text-gray-500 hover:bg-gray-200"
         }`
       }
+      end
     >
       {children}
     </NavLink>

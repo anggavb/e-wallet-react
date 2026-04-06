@@ -4,7 +4,7 @@ const prefix = '/admin'
 export default [
   {
     name: 'Dashboard',
-    to: `${prefix}/dashboard`,
+    to: `${prefix}`,
     icon: DashboardIcon,
     class: 'stroke-gray-600 group-aria-[current=page]:stroke-current group-hover:stroke-blue-800',
   },
