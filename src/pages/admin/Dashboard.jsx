@@ -1,9 +1,14 @@
+import { useState } from "react";
+import { Link } from "react-router";
 import { usePageTitle } from "@hooks"
-import { Widget, TransactionHistory } from '@components/molecules';
-import { listWidget, listHistoryTransactions } from '@utils';
+import { Widget, TransactionHistory, FinancialChart } from '@components/molecules';
+import { listWidget, listHistoryTransactions, dataFinancialChart } from '@utils';
+import { MoneyInsertIcon, TransferIcon } from '@components/atoms/icons';
 
 function Dashboard() {
   usePageTitle("Dashboard")
+  const [chartType, setChartType] = useState("All")
+
   return (
     <>
       {/* Main Content */}
@@ -16,36 +21,36 @@ function Dashboard() {
             }
           </div>
 
-          <section>
-            <div className="flex flex-col items-start gap-4 p-5 bg-white border border-gray-200 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-              <h3 className="text-lg font-semibold">Fast Service</h3>
-              <div className="flex flex-col w-full gap-4 sm:flex-row sm:w-auto">
-                <a className="inline-flex items-center justify-center gap-2 px-8 py-3 text-white transition-all bg-blue-600 rounded-lg sm:w-auto hover:bg-blue-700 font-medium" href="./top-up.html">
-                  <img src="/assets/icons/u_money-insert.svg" alt="" /> Top Up
-                </a>
-                <a className="inline-flex items-center justify-center gap-2 px-8 py-3 text-white transition-all bg-blue-600 rounded-lg sm:w-auto hover:bg-blue-700 font-medium" href="./transfer.html">
-                  <img src="/assets/icons/send-white.svg" alt="" /> Transfer
-                </a>
-              </div>
+          <section className="flex flex-col items-start gap-4 p-5 bg-white border border-gray-200 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <h3 className="text-lg font-semibold">Fast Service</h3>
+            <div className="flex flex-col w-full gap-4 sm:flex-row sm:w-auto">
+              <Link to="top-up" className="inline-flex items-center justify-center gap-2 px-8 py-3 text-white transition-all bg-blue-600 rounded-lg sm:w-auto hover:bg-blue-700 font-medium">
+                <MoneyInsertIcon /> Top Up
+              </Link>
+              <Link to="transfer" className="inline-flex items-center justify-center gap-2 px-8 py-3 text-white transition-all bg-blue-600 rounded-lg sm:w-auto hover:bg-blue-700 font-medium">
+                <TransferIcon className="fill-white" /> Transfer
+              </Link>
             </div>
           </section>
 
           <section className="grow">
             <div className="flex flex-col gap-4 p-4 bg-white border border-gray-200 sm:p-6">
               <div className="flex flex-col items-start gap-3 mb-8 sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="text-lg font-semibold">Income Chart</h3>
+                <h3 className="text-lg font-semibold">{ chartType } Chart</h3>
                 <div className="flex gap-3">
                   <select className="px-3 py-1.5 text-sm text-neutral-800 bg-gray-50 border border-gray-200 rounded-md outline-none cursor-pointer">
                     <option>7 Days</option>
                   </select>
-                  <select className="px-3 py-1.5 text-sm text-neutral-800 bg-gray-50 border border-gray-200 rounded-md outline-none cursor-pointer">
-                    <option>Income</option>
+                  <select value={chartType} onChange={(e) => setChartType(e.target.value)} className="px-3 py-1.5 text-sm text-neutral-800 bg-gray-50 border border-gray-200 rounded-md outline-none cursor-pointer">
+                    <option value="All">All</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
                   </select>
                 </div>
               </div>
               
               <div className="relative flex h-50 gap-4 sm:h-75">
-                <img src="/assets/images/Chart.png" alt="Income Chart" className="object-cover w-full h-full" />
+                <FinancialChart data={dataFinancialChart} chartType={chartType} />
               </div>
             </div>
           </section>
