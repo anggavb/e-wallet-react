@@ -9,7 +9,12 @@ function DashboardMenu() {
   return (
     <nav className="hidden flex-col p-8 px-3 bg-slate-50 border-r border-gray-200 md:flex lg:px-4">
       {listMenus.map((menu) => (
-        <Navigation key={menu.to} to={menu.to} onClick={menu.onclick}>
+        <Navigation
+          key={menu.to}
+          to={menu.to}
+          onClick={menu.onclick}
+          end={menu.isEnd}
+        >
           {menu.icon && <menu.icon className={menu.class} />}
           {menu.name}
         </Navigation>
