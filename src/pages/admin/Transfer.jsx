@@ -1,5 +1,6 @@
 import { usePageTitle } from '@hooks';
 import { TransferIcon } from '@components/atoms/icons';
+import { Link } from 'react-router';
 
 function Transfer() {
   const people = [
@@ -55,14 +56,14 @@ function Transfer() {
 
           <div className="flex flex-col">
             {people.map((person, index) => (
-              <a href={index === 0 ? "./transfer-detail.html" : undefined} key={index} className="block group">
+              <Link to="transfer-detail" key={index} className="block group">
                 <div className={`flex items-center px-3 py-3 gap-3 sm:px-4 sm:py-4 sm:gap-4 md:gap-8 transition-colors rounded-lg group-hover:bg-gray-50 ${index % 2 !== 0 ? 'bg-gray-50' : ''}`}>
                   <img src={`https://i.pravatar.cc/150?img=${person.img}`} alt="User" className="object-cover rounded-lg w-9 h-9 sm:w-11 sm:h-11" />
                   <span className="flex-1 font-medium text-gray-500">{person.name}</span>
                   <span className="hidden flex-1 text-center text-gray-500 text-base sm:block">{person.phone}</span>
                   <i className="ph ph-star text-2xl text-gray-500 cursor-pointer transition-colors duration-200 hover:text-blue-600"></i>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
