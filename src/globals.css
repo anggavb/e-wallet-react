@@ -5,3 +5,9 @@
     --font-sans: 'Montserrat', sans-serif;
     --font-logo: 'Nunito Sans', sans-serif;
 }
+
+@layer base {
+    body {
+        @apply font-sans;
+    }
+}
