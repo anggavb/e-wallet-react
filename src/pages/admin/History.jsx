@@ -1,7 +1,9 @@
+import { usePageTitle } from '@hooks';
 import { HistoryIcon } from '@components/atoms/icons';
 import { listHistoryTransactions } from '@utils';
 
 function History() {
+  usePageTitle("History")
   return (
     <main className="md:col-span-1 lg:col-span-2 flex flex-col gap-4 p-3 sm:p-6 sm:gap-6 md:p-8 xl:p-10 2xl:p-12">
           
@@ -15,7 +17,11 @@ function History() {
           <div className="flex flex-col items-start gap-4 mb-6 sm:flex-row sm:justify-between sm:items-center">
             <h3 className="text-lg font-semibold text-neutral-800">Find Transaction</h3>
             <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-4 py-2.5 w-full sm:w-70 md:w-75">
-              <input type="text" placeholder="Enter Number Or Full Name" className="grow border-none outline-none font-inherit text-sm text-neutral-800 bg-transparent" />
+              <input 
+                type="text" 
+                placeholder="Enter Number Or Full Name" 
+                className="grow border-none outline-none font-inherit text-sm text-neutral-800 bg-transparent" 
+              />
               <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="9.48856" cy="9.48856" r="8.98856" stroke="#4F5665" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M15.7402 16.2071L19.2643 19.722" stroke="#4F5665" strokeLinecap="round" strokeLinejoin="round"/>
