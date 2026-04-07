@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
+import { AdminWrapper } from "@layouts";
 import {
-  AdminWrapper,
   Dashboard,
   History,
   Profile,
