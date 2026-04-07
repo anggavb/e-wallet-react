@@ -1,25 +1,23 @@
 /**
  * A reusable Button component that accepts a variant prop to determine its styling.
+ * Uses utility classes defined in globals.css for consistency.
  * @param {Object} props
  * @param {React.ReactNode} props.children - The content to be displayed inside the button.
- * @param {string} props.variant - The variant of the button (e.g., "primary", "secondary", "success", "danger").
- * @param {Object} props.props - Additional props to be passed to the button element.
+ * @param {"primary"|"secondary"|"success"|"danger"} props.variant - The button variant.
+ * @param {string} props.className - Additional classes to override or extend the variant.
+ * @param {Object} props.props - Additional props passed to the button element.
  * @returns {JSX.Element}
  */
-function Button({ children, variant = "primary", ...props }) {
+function Button({ children, variant = "primary", className = "", ...props }) {
   const variants = {
-    primary:
-      "bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded",
-    secondary:
-      "bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded",
-    success:
-      "bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded",
-    danger:
-      "bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded",
+    primary: "btn-primary w-full",
+    secondary: "btn-primary w-full bg-gray-700 hover:bg-gray-800 hover:shadow-none",
+    success: "btn-primary w-full bg-green-700 hover:bg-green-800 hover:shadow-none",
+    danger: "btn-danger",
   };
 
   return (
-    <button className={variants[variant]} {...props}>
+    <button className={`${variants[variant]} ${className}`} {...props}>
       {children}
     </button>
   );

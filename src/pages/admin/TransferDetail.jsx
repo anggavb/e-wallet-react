@@ -1,14 +1,12 @@
 import { useState } from "react";
-
 import { TransferIcon } from "@components/atoms/icons";
-import {
-  PinModal,
-  TransferFailedModal,
-  TransferSuccessModal,
-} from "@components/organisms";
+import { PinModal, TransferFailedModal, TransferSuccessModal } from "@components/organisms";
 import { usePageTitle } from "@hooks";
 import { profile } from "@/assets/images";
 import { Button } from "@components/atoms/";
+import { PageHeader, Stepper } from "@components/molecules";
+
+const TRANSFER_STEPS = ["Find People", "Set Nominal", "Finish"];
 
 function TransferDetail() {
   const [pinModal, setPinModal] = useState(false);
@@ -27,118 +25,74 @@ function TransferDetail() {
 
   usePageTitle("Transfer Detail");
   return (
-    <main className="md:col-span-1 lg:col-span-2 flex flex-col gap-4 p-3 sm:p-6 sm:gap-6 md:p-8 xl:p-10 2xl:p-12">
-      <h2 className="flex items-center gap-3 text-base font-semibold text-blue-600 sm:text-lg">
-        <TransferIcon className="fill-blue-600" />
-        Transfer Money
-      </h2>
-      {/* Stepper */}
-      <div className="flex flex-wrap items-center gap-4 mb-4 sm:mb-10 sm:flex-nowrap sm:gap-6">
-        <div className="flex items-center gap-3 text-neutral-800 font-medium text-sm sm:text-base">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-500 text-white flex justify-center items-center text-xs sm:text-sm font-semibold">
-            1
-          </div>
-          <span>Find People</span>
-        </div>
-        <div className="hidden grow-0 w-15 h-0 border-t-2 border-dashed border-gray-300 sm:block"></div>
-        <div className="flex items-center gap-3 text-gray-500 font-medium text-sm sm:text-base">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-blue-600 text-white flex justify-center items-center text-xs sm:text-sm font-semibold">
-            2
-          </div>
-          <span>Set Nominal</span>
-        </div>
-        <div className="hidden grow-0 w-15 h-0 border-t-2 border-dashed border-gray-300 sm:block"></div>
-        <div className="flex items-center gap-3 text-gray-500 font-medium text-sm sm:text-base">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-500 text-white flex justify-center items-center text-xs sm:text-sm font-semibold">
-            3
-          </div>
-          <span>Finish</span>
-        </div>
-      </div>
+    <main className="page-main md:col-span-1 lg:col-span-2">
+      <PageHeader icon={<TransferIcon className="fill-blue-600" />} title="Transfer Money" />
+
+      <Stepper steps={TRANSFER_STEPS} activeStep={1} />
+
       <section>
         <div className="flex flex-col p-4 bg-white border border-neutral-200 rounded-xl sm:p-6 lg:p-8 gap-6 sm:gap-8">
-          <div className="flex flex-col gap-2">
+
+          {/* People Information */}
+          <div className="form-group">
             <label className="text-[0.9rem] font-semibold text-gray-500 sm:text-base">
               People Information
             </label>
             <div className="flex flex-col items-center gap-4 p-4 text-center transition-colors bg-gray-50 rounded-xl sm:flex-row sm:text-left sm:gap-6">
-              <img
-                src={profile}
-                alt="Ghaluh 1"
-                className="object-cover w-15 h-15 rounded-xl shrink-0"
-              />
+              <img src={profile} alt="Ghaluh 1" className="object-cover w-15 h-15 rounded-xl shrink-0" />
               <div className="flex flex-col grow gap-1">
-                <h4 className="text-base font-semibold text-neutral-800">
-                  Ghaluh 1
-                </h4>
+                <h4 className="text-base font-semibold text-neutral-800">Ghaluh 1</h4>
                 <p className="text-xs text-neutral-800">(239) 555-0108</p>
                 <span className="inline-flex items-center mx-auto sm:mx-0 w-fit gap-1.5 px-2.5 py-1 mt-1 text-xs font-semibold text-white bg-blue-700 border border-transparent rounded-md">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_44_327)">
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M9.58507 0.51936C8.64181 -0.17312 7.3582 -0.17312 6.41493 0.51936L5.48738 1.2003C5.33429 1.31269 5.1563 1.38642 4.96858 1.4152L3.8312 1.58958C2.67456 1.76691 1.76691 2.67456 1.58958 3.8312L1.4152 4.96858C1.38642 5.1563 1.31269 5.33429 1.2003 5.48738L0.51936 6.41493C-0.17312 7.3582 -0.17312 8.6418 0.51936 9.58507L1.2003 10.5126C1.31269 10.6657 1.38642 10.8437 1.4152 11.0314L1.58958 12.1688C1.76691 13.3254 2.67456 14.2331 3.8312 14.4104L4.96858 14.5848C5.1563 14.6136 5.33429 14.6873 5.48738 14.7997L6.41493 15.4806C7.3582 16.1731 8.6418 16.1731 9.58507 15.4806L10.5126 14.7997C10.6657 14.6873 10.8437 14.6136 11.0314 14.5848L12.1688 14.4104C13.3254 14.2331 14.2331 13.3254 14.4104 12.1688L14.5848 11.0314C14.6136 10.8437 14.6873 10.6657 14.7997 10.5126L15.4806 9.58507C16.1731 8.6418 16.1731 7.3582 15.4806 6.41493L14.7997 5.48738C14.6873 5.33429 14.6136 5.1563 14.5848 4.96858L14.4104 3.8312C14.2331 2.67456 13.3254 1.76691 12.1688 1.58958L11.0314 1.4152C10.8437 1.38642 10.6657 1.31269 10.5126 1.2003L9.58507 0.51936ZM7.3026 1.72851C7.71762 1.42383 8.28238 1.42383 8.6974 1.72851L9.62494 2.40945C9.9729 2.66489 10.3774 2.83246 10.8041 2.89787L11.9415 3.07225C12.4504 3.15027 12.8497 3.54962 12.9277 4.05852L13.1021 5.19589C13.1675 5.62256 13.3351 6.0271 13.5906 6.37506L14.2715 7.3026C14.5762 7.71762 14.5762 8.28238 14.2715 8.6974L13.5906 9.62494C13.3351 9.9729 13.1675 10.3774 13.1021 10.8041L12.9277 11.9415C12.8497 12.4504 12.4504 12.8497 11.9415 12.9277L10.8041 13.1021C10.3774 13.1675 9.9729 13.3351 9.62494 13.5906L8.6974 14.2715C8.28238 14.5762 7.71762 14.5762 7.3026 14.2715L6.37506 13.5906C6.0271 13.3351 5.62256 13.1675 5.19589 13.1021L4.05852 12.9277C3.54962 12.8497 3.15027 12.4504 3.07225 11.9415L2.89787 10.8041C2.83246 10.3774 2.66489 9.9729 2.40945 9.62494L1.72851 8.6974C1.42383 8.28238 1.42383 7.71762 1.72851 7.3026L2.40945 6.37505C2.66489 6.0271 2.83246 5.62256 2.89787 5.19589L3.07225 4.05852C3.15027 3.54962 3.54962 3.15027 4.05852 3.07225L5.19589 2.89787C5.62256 2.83246 6.0271 2.66489 6.37505 2.40945L7.3026 1.72851ZM11.2803 6.78033C11.5732 6.48744 11.5732 6.01256 11.2803 5.71967C10.9874 5.42678 10.5126 5.42678 10.2197 5.71967L7 8.93934L5.78033 7.71967C5.48744 7.42678 5.01256 7.42678 4.71967 7.71967C4.42678 8.01256 4.42678 8.48744 4.71967 8.78033L6.46967 10.5303C6.76256 10.8232 7.23744 10.8232 7.53033 10.5303L11.2803 6.78033Z"
-                        fill="white"
-                      />
+                      <path fillRule="evenodd" clipRule="evenodd" d="M9.58507 0.51936C8.64181 -0.17312 7.3582 -0.17312 6.41493 0.51936L5.48738 1.2003C5.33429 1.31269 5.1563 1.38642 4.96858 1.4152L3.8312 1.58958C2.67456 1.76691 1.76691 2.67456 1.58958 3.8312L1.4152 4.96858C1.38642 5.1563 1.31269 5.33429 1.2003 5.48738L0.51936 6.41493C-0.17312 7.3582 -0.17312 8.6418 0.51936 9.58507L1.2003 10.5126C1.31269 10.6657 1.38642 10.8437 1.4152 11.0314L1.58958 12.1688C1.76691 13.3254 2.67456 14.2331 3.8312 14.4104L4.96858 14.5848C5.1563 14.6136 5.33429 14.6873 5.48738 14.7997L6.41493 15.4806C7.3582 16.1731 8.6418 16.1731 9.58507 15.4806L10.5126 14.7997C10.6657 14.6873 10.8437 14.6136 11.0314 14.5848L12.1688 14.4104C13.3254 14.2331 14.2331 13.3254 14.4104 12.1688L14.5848 11.0314C14.6136 10.8437 14.6873 10.6657 14.7997 10.5126L15.4806 9.58507C16.1731 8.6418 16.1731 7.3582 15.4806 6.41493L14.7997 5.48738C14.6873 5.33429 14.6136 5.1563 14.5848 4.96858L14.4104 3.8312C14.2331 2.67456 13.3254 1.76691 12.1688 1.58958L11.0314 1.4152C10.8437 1.38642 10.6657 1.31269 10.5126 1.2003L9.58507 0.51936ZM11.2803 6.78033C11.5732 6.48744 11.5732 6.01256 11.2803 5.71967C10.9874 5.42678 10.5126 5.42678 10.2197 5.71967L7 8.93934L5.78033 7.71967C5.48744 7.42678 5.01256 7.42678 4.71967 7.71967C4.42678 8.01256 4.42678 8.48744 4.71967 8.78033L6.46967 10.5303C6.76256 10.8232 7.23744 10.8232 7.53033 10.5303L11.2803 6.78033Z" fill="white"/>
                     </g>
                     <defs>
                       <clipPath id="clip0_44_327">
-                        <rect width="16" height="16" fill="white" />
+                        <rect width="16" height="16" fill="white"/>
                       </clipPath>
                     </defs>
                   </svg>
                   Verified
                 </span>
               </div>
-              <i className="text-2xl text-gray-100"></i>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-[0.9rem] font-semibold text-gray-500 sm:text-base">
-              Amount
-            </label>
-            <p className="text-sm text-neutral-800 -mt-1 mb-2">
-              Type the amount you want to transfer
-            </p>
+          {/* Amount */}
+          <div className="form-group">
+            <label className="text-[0.9rem] font-semibold text-gray-500 sm:text-base">Amount</label>
+            <p className="text-sm text-neutral-800 -mt-1 mb-2">Type the amount you want to transfer</p>
             <div className="relative flex items-center">
               <input
                 type="text"
                 placeholder="Enter Nominal Transfer"
-                className="w-full p-4 text-base font-inherit text-neutral-800 bg-transparent border border-neutral-200 rounded-lg outline-none transition-colors focus:border-blue-700"
+                className="w-full p-4 text-base font-[inherit] text-neutral-800 bg-transparent border border-neutral-200 rounded-lg outline-none transition-colors focus:border-blue-700"
               />
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-[0.9rem] font-semibold text-gray-500 sm:text-base">
-              Notes
-            </label>
-            <p className="text-sm text-neutral-800 -mt-1 mb-2">
-              You can add some notes for this transaction
-            </p>
+          {/* Notes */}
+          <div className="form-group">
+            <label className="text-[0.9rem] font-semibold text-gray-500 sm:text-base">Notes</label>
+            <p className="text-sm text-neutral-800 -mt-1 mb-2">You can add some notes for this transaction</p>
             <textarea
               placeholder="Enter Some Notes"
               rows="4"
-              className="w-full p-4 text-base font-inherit text-neutral-800 bg-transparent border border-neutral-200 rounded-lg outline-none resize-y transition-colors focus:border-blue-700"
+              className="w-full p-4 text-base font-[inherit] text-neutral-800 bg-transparent border border-neutral-200 rounded-lg outline-none resize-y transition-colors focus:border-blue-700"
             ></textarea>
           </div>
 
           <Button
             onClick={() => setPinModal(true)}
-            className="flex items-center justify-center w-full px-6 py-3.5 mt-2 sm:mt-4 text-[0.9rem] sm:text-base font-semibold sm:font-bold text-white transition-all duration-200 bg-blue-900 border-none rounded-lg cursor-pointer hover:bg-blue-950 hover:shadow-[0_4px_12px_rgba(30,58,138,0.3)] active:scale-[0.98]"
+            className="mt-2 sm:mt-4 text-[0.9rem] sm:text-base bg-blue-900 hover:bg-blue-950 hover:shadow-[0_4px_12px_rgba(30,58,138,0.3)] rounded-lg"
           >
             Submit & Transfer
           </Button>
         </div>
       </section>
+
       <PinModal isOpen={pinModal} onNext={() => onNextPinModal()} />
       <TransferFailedModal
         isOpen={transferFailedModal}

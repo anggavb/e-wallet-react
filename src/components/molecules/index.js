@@ -4,6 +4,11 @@ import FinancialChart from "./FinancialChart";
 import RadioMenu from "./RadioMenu";
 import InputField from './InputField';
 import SocialButton from './SocialButton';
+import PageHeader from './PageHeader';
+import FormField from './FormField';
+import Stepper from './Stepper';
+import SearchBox from './SearchBox';
+import Pagination from './Pagination';
 
 export {
   Widget,
@@ -11,5 +16,10 @@ export {
   FinancialChart,
   RadioMenu,
   InputField,
-  SocialButton
+  SocialButton,
+  PageHeader,
+  FormField,
+  Stepper,
+  SearchBox,
+  Pagination,
 }
