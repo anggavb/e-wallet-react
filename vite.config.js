@@ -10,6 +10,7 @@ export default defineConfig({
       '@': '/src',
       '@components': '/src/components',
       '@hooks': '/src/hooks',
+      '@layouts': '/src/layouts',
       '@pages': '/src/pages',
       '@utils': '/src/utils',
     },
