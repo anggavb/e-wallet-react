@@ -1,13 +1,13 @@
-import { NavLink } from "react-router"
+import { NavLink } from "react-router";
 
 /**
  * Navigation component for rendering a navigation link with active state styling.
- * @param {Object} props 
+ * @param {Object} props
  * @param {string} props.to - The destination path for the navigation link.
  * @param {React.ReactNode} props.children - The content to be displayed inside the navigation link.
  * @returns {JSX.Element}
  */
-function Navigation({ to, children }) {
+function Navigation({ to, children, onClick = () => {} }) {
   return (
     <NavLink
       to={to}
@@ -18,11 +18,12 @@ function Navigation({ to, children }) {
             : "text-gray-500 hover:bg-gray-200"
         }`
       }
+      onClick={onClick}
       end
     >
       {children}
     </NavLink>
-  )
+  );
 }
 
-export default Navigation
+export default Navigation;
