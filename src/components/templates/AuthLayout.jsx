@@ -2,7 +2,7 @@ import React from "react";
 
 const AuthLayout = ({ imageSrc, imageAlt, children }) => {
   return (
-    <main className="flex flex-col md:flex-row w-full min-h-screen bg-blue-700">
+    <main className="flex flex-col md:flex-row max-sm:bg-white w-full min-h-screen bg-blue-700">
       {/* Form Panel */}
       <section className="flex items-center justify-center w-full p-6 bg-white md:w-[55%] lg:w-[49%] md:rounded-r-[40px] md:p-10 lg:p-12 xl:p-[3.5rem_2.5rem] 2xl:p-[4rem_3rem]">
         <div className="w-full max-w-134 xl:max-w-140 2xl:max-w-150 flex flex-col gap-4 sm:gap-5">
