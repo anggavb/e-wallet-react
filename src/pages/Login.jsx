@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
 
 import { AuthLayout } from "@components/templates";
 import { AuthHeader } from "@components/organisms";
@@ -15,6 +16,8 @@ import { usePageTitle } from "@hooks";
 const Login = () => {
   usePageTitle("Login");
 
+  const { register, handleSubmit } = useForm();
+
   const navigate = useNavigate();
   const goToDashboard = () => {
     localStorage.setItem(
@@ -26,16 +29,10 @@ const Login = () => {
     );
     navigate("/admin", { replace: true });
   };
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const email = formData.get("email");
-    const password = formData.get("password");
-
+  const handleLogin = (data) => {
     const credentials = JSON.parse(localStorage.getItem("credentials") || "[]");
     const user = credentials.find(
-      (cred) => cred.email === email && cred.password === password,
+      (cred) => cred.email === data.email && cred.password === data.password,
     );
 
     if (!user) {
@@ -75,25 +72,28 @@ const Login = () => {
         <span>Or</span>
       </div>
 
-      <form onSubmit={handleLogin} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(handleLogin)}
+        className="flex flex-col gap-4"
+      >
         <InputField
+          {...register("email", { required: true })}
           id="email"
           type="email"
           name="email"
           label="Email"
           placeholder="Enter Your Email"
           iconLeft={<MailIcon />}
-          required
         />
 
         <InputField
+          {...register("password", { required: true })}
           id="password"
           name="password"
           label="Password"
           placeholder="Enter Your Password"
           iconLeft={<PasswordIcon />}
           isPassword
-          required
         />
 
         <Button type="submit">Login</Button>
