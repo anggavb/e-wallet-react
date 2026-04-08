@@ -77,9 +77,16 @@ const Register = () => {
       <form
         onSubmit={handleSubmit(handleRegister)}
         className="flex flex-col gap-4"
+        noValidate
       >
         <InputField
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email address",
+            },
+          })}
           id="email"
           type="email"
           label="Email"
@@ -88,7 +95,9 @@ const Register = () => {
           iconLeft={<MailIcon />}
         />
         {errors.email && (
-          <span className="text-red-500 text-sm">Email is required</span>
+          <span className="text-red-500 text-sm">
+            {errors.email.message || "Email is required"}
+          </span>
         )}
 
         <InputField
