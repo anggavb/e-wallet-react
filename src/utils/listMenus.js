@@ -3,8 +3,9 @@ import { DashboardIcon, TransferIcon, HistoryIcon, TopUpIcon, ProfileIcon, Logou
 
 const prefix = '/admin'
 const handleLogout = (e) => {
+  e.preventDefault();
   const confirmLogout = window.confirm("Are you sure you want to logout?");
-  if (!confirmLogout) e.preventDefault();
+  if (!confirmLogout) return;
 
   localStorage.removeItem('userLoggedIn');
   return replace('/');
