@@ -16,7 +16,11 @@ import { usePageTitle } from "@hooks";
 const Login = () => {
   usePageTitle("Login");
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const navigate = useNavigate();
   const goToDashboard = () => {
@@ -75,9 +79,16 @@ const Login = () => {
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="flex flex-col gap-4"
+        noValidate
       >
         <InputField
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email address",
+            },
+          })}
           id="email"
           type="email"
           name="email"
@@ -85,6 +96,11 @@ const Login = () => {
           placeholder="Enter Your Email"
           iconLeft={<MailIcon />}
         />
+        {errors.email && (
+          <span className="text-red-500 text-sm">
+            {errors.email.message || "Email is required"}
+          </span>
+        )}
 
         <InputField
           {...register("password", { required: true })}
@@ -95,6 +111,11 @@ const Login = () => {
           iconLeft={<PasswordIcon />}
           isPassword
         />
+        {errors.password && (
+          <span className="text-red-500 text-sm">
+            {errors.password.message || "Password is required"}
+          </span>
+        )}
 
         <Button type="submit">Login</Button>
       </form>
