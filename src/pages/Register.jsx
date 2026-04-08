@@ -25,6 +25,8 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  const password = watch("password");
+
   const handleRegister = (data) => {
     const credentials = JSON.parse(localStorage.getItem("credentials") || "[]");
 
@@ -105,8 +107,7 @@ const Register = () => {
         <InputField
           {...register("confirmPassword", {
             required: true,
-            validate: (value) =>
-              value === watch("password") || "Passwords do not match",
+            validate: (value) => value === password || "Passwords do not match",
           })}
           id="confirm-password"
           label="Confirm Password"
