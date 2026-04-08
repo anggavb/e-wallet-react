@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   const goToDashboard = () => {
     localStorage.setItem(
-      "credentials",
+      "userLoggedIn",
       JSON.stringify({
         name: "Angga Vb",
         email: "anggavb8@gmail.com",
