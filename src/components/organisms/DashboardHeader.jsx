@@ -10,7 +10,7 @@ import { LogoutIcon } from "@components/atoms/icons";
 
 function DashboardHeader() {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const credentials = JSON.parse(localStorage.getItem("credentials")) || null;
+  const credentials = JSON.parse(localStorage.getItem("userLoggedIn")) || null;
   return (
     <header className="sticky top-0 z-100 flex items-center justify-between h-14 px-3 py-2 bg-white border-b border-gray-200 sm:h-16 sm:px-4 sm:py-3 md:h-17.5 md:px-8 md:py-4">
       <div className="flex items-center gap-2.5 text-xl font-semibold text-blue-600 font-logo">

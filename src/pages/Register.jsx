@@ -1,4 +1,4 @@
-import { replace } from "react-router";
+import { useNavigate } from "react-router";
 
 import { AuthLayout } from "@components/templates";
 import { AuthHeader } from "@components/organisms";
@@ -14,6 +14,41 @@ import { usePageTitle } from "@hooks";
 
 const Register = () => {
   usePageTitle("Register");
+
+  const navigate = useNavigate();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirm-password");
+
+    console.log(email, password, confirmPassword);
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const credentials = JSON.parse(localStorage.getItem("credentials") || "[]");
+
+    if (credentials.some((cred) => cred.email === email)) {
+      alert("Email already registered!");
+      return;
+    }
+
+    const name = email.split("@")[0];
+    credentials.push({ email, password, name });
+    localStorage.setItem("credentials", JSON.stringify(credentials));
+
+    alert("Registration successful! You can now log in.");
+
+    // Redirect to admin page after registration
+    navigate("/", { replace: true });
+  };
+
   return (
     <AuthLayout
       imageSrc="/3d-hand-making-cashless-payment-from-smartphone 1 copy.png"
@@ -25,10 +60,16 @@ const Register = () => {
       />
 
       <div className="flex flex-col gap-4 mt-2">
-        <SocialButton icon={<GoogleIcon />} onClick={() => replace("/admin")}>
+        <SocialButton
+          icon={<GoogleIcon />}
+          onClick={() => navigate("/admin", { replace: true })}
+        >
           Sign In With Google
         </SocialButton>
-        <SocialButton icon={<FacebookIcon />} onClick={() => replace("/admin")}>
+        <SocialButton
+          icon={<FacebookIcon />}
+          onClick={() => navigate("/admin", { replace: true })}
+        >
           Sign In With Facebook
         </SocialButton>
       </div>
@@ -37,11 +78,12 @@ const Register = () => {
         <span>Or</span>
       </div>
 
-      <form action="#" method="POST" className="flex flex-col gap-4">
+      <form onSubmit={handleRegister} className="flex flex-col gap-4">
         <InputField
           id="email"
           type="email"
           label="Email"
+          name="email"
           placeholder="Enter Your Email"
           iconLeft={<MailIcon />}
           required
@@ -49,6 +91,7 @@ const Register = () => {
 
         <InputField
           id="password"
+          name="password"
           label="Password"
           placeholder="Enter Your Password"
           iconLeft={<PasswordIcon />}
@@ -59,6 +102,7 @@ const Register = () => {
         <InputField
           id="confirm-password"
           label="Confirm Password"
+          name="confirm-password"
           placeholder="Enter Your Password Again"
           iconLeft={<PasswordIcon />}
           isPassword

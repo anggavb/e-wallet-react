@@ -26,6 +26,31 @@ const Login = () => {
     );
     navigate("/admin", { replace: true });
   };
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const credentials = JSON.parse(localStorage.getItem("credentials") || "[]");
+    const user = credentials.find(
+      (cred) => cred.email === email && cred.password === password,
+    );
+
+    if (!user) {
+      alert("Invalid email or password!");
+      return;
+    }
+
+    localStorage.setItem(
+      "userLoggedIn",
+      JSON.stringify({ email: user.email, name: user.name }),
+    );
+
+    // Redirect to admin page after login
+    navigate("/admin", { replace: true });
+  };
 
   return (
     <AuthLayout
@@ -50,10 +75,11 @@ const Login = () => {
         <span>Or</span>
       </div>
 
-      <form action="#" method="POST" className="flex flex-col gap-4">
+      <form onSubmit={handleLogin} className="flex flex-col gap-4">
         <InputField
           id="email"
           type="email"
+          name="email"
           label="Email"
           placeholder="Enter Your Email"
           iconLeft={<MailIcon />}
@@ -62,6 +88,7 @@ const Login = () => {
 
         <InputField
           id="password"
+          name="password"
           label="Password"
           placeholder="Enter Your Password"
           iconLeft={<PasswordIcon />}

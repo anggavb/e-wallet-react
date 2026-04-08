@@ -6,7 +6,7 @@ const handleLogout = (e) => {
   const confirmLogout = window.confirm("Are you sure you want to logout?");
   if (!confirmLogout) e.preventDefault();
 
-  localStorage.removeItem('credentials');
+  localStorage.removeItem('userLoggedIn');
   return replace('/');
 }
 export default [
