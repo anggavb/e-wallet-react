@@ -4,6 +4,8 @@ import PinModal from "./PinModal";
 import TransferFailedModal from "./TransferFailedModal";
 import TransferSuccessModal from "./TransferSuccessModal";
 import AuthHeader from "./AuthHeader";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 
 export {
   DashboardMenu,
@@ -12,4 +14,6 @@ export {
   TransferFailedModal,
   TransferSuccessModal,
   AuthHeader,
+  Footer,
+  Navbar
 }
