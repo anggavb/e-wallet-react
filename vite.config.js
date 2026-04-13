@@ -13,6 +13,7 @@ export default defineConfig({
       '@layouts': '/src/layouts',
       '@pages': '/src/pages',
       '@utils': '/src/utils',
+      '@context': '/src/context',
     },
   },
 })
