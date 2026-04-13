@@ -11,6 +11,7 @@ import SearchBox from './SearchBox';
 import Pagination from './Pagination';
 import FeatureCard from "./FeatureCard";
 import TestimonialCard from "./TestimonialCard";
+import PinInput from "./PinInput";
 
 export {
   Widget,
@@ -25,5 +26,6 @@ export {
   SearchBox,
   Pagination,
   FeatureCard,
-  TestimonialCard
+  TestimonialCard,
+  PinInput
 }
