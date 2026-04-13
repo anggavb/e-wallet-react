@@ -9,6 +9,8 @@ import FormField from './FormField';
 import Stepper from './Stepper';
 import SearchBox from './SearchBox';
 import Pagination from './Pagination';
+import FeatureCard from "./FeatureCard";
+import TestimonialCard from "./TestimonialCard";
 
 export {
   Widget,
@@ -22,4 +24,6 @@ export {
   Stepper,
   SearchBox,
   Pagination,
+  FeatureCard,
+  TestimonialCard
 }
