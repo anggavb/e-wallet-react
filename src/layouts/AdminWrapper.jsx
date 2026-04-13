@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router";
 import { DashboardMenu, DashboardHeader } from "@components/organisms";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * AdminWrapper component that serves as a layout wrapper for admin-related pages.
@@ -8,14 +8,14 @@ import { useEffect, useRef } from "react";
  */
 function AdminWrapper() {
   const navigate = useNavigate();
-  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn")) || null;
-  const credentials = useRef(userLoggedIn);
+  const [user, _] = useState(localStorage.getItem("userLoggedIn"));
 
   useEffect(() => {
-    if (!credentials.current) {
+    if (!user) {
       navigate("/", { replace: true });
+      return;
     }
-  }, [navigate]);
+  }, [user, navigate]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-neutral-800 overflow-x-hidden">
