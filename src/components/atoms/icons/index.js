@@ -23,6 +23,20 @@ import OVOIcon from "./OVOIcon";
 
 import GoogleIcon from "./GoogleIcon";
 import FacebookIcon from "./FacebookIcon";
+import GooglePlayIcon from "./GooglePlayIcon";
+import AppStoreIcon from "./AppStoreIcon";
+import MicrosoftIcon from "./MicrosoftIcon";
+import DropboxIcon from './DropboxIcon';
+import HnMIcon from './HnMIcon';
+import AirBnBIcon from './AirBnBIcon';
+import CanonIcon from './CanonIcon';
+import DellIcon from './DellIcon';
+
+import HeadphonesIcon from './HeadphonesIcon';
+import ShieldIcon from './ShieldIcon';
+import DownloadIcon from './DownloadIcon';
+
+import StarIcon from "./StarIcon";
 
 export {
   DashboardIcon,
@@ -47,4 +61,16 @@ export {
   MailIcon,
   PasswordIcon,
   EyeSlashIcon,
+  GooglePlayIcon,
+  AppStoreIcon,
+  MicrosoftIcon,
+  DropboxIcon,
+  HnMIcon,
+  AirBnBIcon,
+  CanonIcon,
+  DellIcon,
+  HeadphonesIcon,
+  ShieldIcon,
+  DownloadIcon,
+  StarIcon
 }
