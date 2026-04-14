@@ -1,13 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
-import './globals.css'
-import AppRouter from './AppRouter.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "@/redux/store";
+import { LoadingOverlay } from "@components/molecules";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
-  </StrictMode>,
-)
+import "./globals.css";
+import AppRouter from "./AppRouter.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
+    <PersistGate loading={<LoadingOverlay />} persistor={persistor}>
+      <StrictMode>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </StrictMode>
+    </PersistGate>
+  </Provider>,
+);
