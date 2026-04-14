@@ -12,6 +12,7 @@ import Pagination from './Pagination';
 import FeatureCard from "./FeatureCard";
 import TestimonialCard from "./TestimonialCard";
 import PinInput from "./PinInput";
+import LoadingOverlay from "./LoadingOverlay";
 
 export {
   Widget,
@@ -27,5 +28,6 @@ export {
   Pagination,
   FeatureCard,
   TestimonialCard,
-  PinInput
+  PinInput,
+  LoadingOverlay,
 }
