@@ -14,7 +14,7 @@ import {
   PasswordIcon,
 } from "@components/atoms/icons";
 import { usePageTitle } from "@hooks";
-import { usersAction } from "@redux/slices/users";
+import { userLoginAction } from "@redux/slices/userLogin";
 
 const Login = () => {
   usePageTitle("Login");
@@ -35,7 +35,7 @@ const Login = () => {
         (user) => user.email === data.email && user.password === data.password,
       );
 
-      dispatch(usersAction.login(user));
+      dispatch(userLoginAction.login(user));
       navigate("/admin", { replace: true });
       return;
     }

@@ -15,7 +15,7 @@ import {
 } from "@components/atoms/icons";
 import { usePageTitle } from "@hooks";
 
-import { usersAction } from "@redux/slices/users";
+import { usersAction } from "@redux/slices/userRegistered";
 
 const Register = () => {
   usePageTitle("Register");

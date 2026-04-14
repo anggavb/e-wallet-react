@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   users: [],
-  userIdLoggedIn: 0,
-  lastId: 1,
+  lastId: 0,
 };
 
 const usersSlice = createSlice({
-  name: "users",
+  name: "login",
   initialState,
   reducers: {
     register: (state, { payload }) => {
+      state.lastId++;
       const newUser = {
         id: state.lastId,
         name: payload.name,
@@ -18,10 +18,6 @@ const usersSlice = createSlice({
         password: payload.password,
       };
       state.users.push(newUser);
-      state.lastId++;
-    },
-    login: (state, { payload }) => {
-      state.userIdLoggedIn = payload.id
     }
   },
 });

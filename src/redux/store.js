@@ -11,17 +11,19 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/es/storage";
 
-import usersReducer from "./slices/users";
+import userRegisteredReducer from "./slices/userRegistered";
+import userLoginReducer from "./slices/userLogin";
 import { getEnv } from '@utils';
 
 const persistConfig = {
-  key: "credentials",
+  key: "users",
   storage,
 };
 
 const store = configureStore({
   reducer: persistCombineReducers(persistConfig, {
-    users: usersReducer,
+    users: userRegisteredReducer,
+    userLogin: userLoginReducer,
   }),
   devTools: getEnv.env === "development",
   middleware: (getDefaultMiddleware) =>
