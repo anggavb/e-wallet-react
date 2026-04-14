@@ -6,6 +6,7 @@ import TransferSuccessModal from "./TransferSuccessModal";
 import AuthHeader from "./AuthHeader";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import FloatingConfirm from "./FloatingConfirm"
 
 export {
   DashboardMenu,
@@ -15,5 +16,6 @@ export {
   TransferSuccessModal,
   AuthHeader,
   Footer,
-  Navbar
+  Navbar,
+  FloatingConfirm
 }
