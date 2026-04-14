@@ -15,6 +15,7 @@ export default defineConfig({
       '@utils': '/src/utils',
       '@context': '/src/context',
       '@redux': '/src/redux',
+      '@zustand': '/src/zustand',
     },
   },
 })
