@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 
 import { AuthLayout } from "@components/templates";
 import { AuthHeader } from "@components/organisms";
@@ -14,34 +15,30 @@ import {
 } from "@components/atoms/icons";
 import { usePageTitle } from "@hooks";
 
+import { usersAction } from "@redux/slices/users";
+
 const Register = () => {
   usePageTitle("Register");
-
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+  const { users } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
 
   const password = watch("password");
 
   const handleRegister = (data) => {
-    const credentials = JSON.parse(localStorage.getItem("credentials") || "[]");
-
-    if (credentials.some((cred) => cred.email === data.email)) {
+    if (users.some((user) => user.email === data.email)) {
       toast.error("Email already registered!");
-      return;
     }
 
     const name = data.email.split("@")[0];
-    credentials.push({ email: data.email, password: data.password, name });
-    localStorage.setItem("credentials", JSON.stringify(credentials));
-
+    dispatch(usersAction.register({ ...data, name }));
     toast.success("Registration successful! You can now log in.");
-
     setTimeout(() => {
       navigate("/login", { replace: true });
     }, 1500);
