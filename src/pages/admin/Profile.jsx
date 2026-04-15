@@ -25,7 +25,7 @@ function Profile() {
   } = useForm();
 
   const { users } = useSelector((state) => state.users);
-  const { userLogin } = useSelector((state) => state.userLogin);
+  const { user: userLogin } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
 
   const handleFileChange = (event) => {
