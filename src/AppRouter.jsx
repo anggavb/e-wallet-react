@@ -7,6 +7,7 @@ import {
   TopUp,
   Transfer,
   TransferDetail,
+  ProfileChangePassword,
 } from "@pages/admin";
 import { Login, Register, Landing, EnterPin } from "@pages";
 import { useCheckLogin } from "@hooks";
@@ -27,7 +28,10 @@ function AppRouter() {
         </Route>
         <Route path="history" element={<History />} />
         <Route path="top-up" element={<TopUp />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile">
+          <Route index element={<Profile />} />
+          <Route path="change-password" element={<ProfileChangePassword />} />
+        </Route>
       </Route>
     </Routes>
   );

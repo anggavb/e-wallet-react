@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import TopUp from "./TopUp";
 import Transfer from "./Transfer";
 import TransferDetail from "./TransferDetail";
+import ProfileChangePassword from "./ProfileChangePassword";
 
 export {
   Dashboard,
@@ -12,4 +13,5 @@ export {
   TopUp,
   Transfer,
   TransferDetail,
+  ProfileChangePassword,
 }

@@ -35,7 +35,7 @@ export default [
     name: 'Profile',
     to: `${prefix}/profile`,
     icon: ProfileIcon,
-    isEnd: true,
+    isEnd: false,
     class: 'stroke-gray-600 group-aria-[current=page]:stroke-current group-hover:stroke-blue-800',
   },
   {
