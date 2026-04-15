@@ -11,7 +11,7 @@ import { Button } from "@components/atoms";
 
 import { userLoginAction } from "@redux/slices/userLogin";
 import { usersAction } from "@redux/slices/userRegistered";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 function Profile() {
   const [avatarPreview, setAvatarPreview] = useState(profile);
@@ -302,7 +302,6 @@ function Profile() {
           </form>
         </div>
       </main>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </>
   );
 }

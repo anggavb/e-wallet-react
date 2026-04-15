@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
 import { InputField } from "@components/molecules";
@@ -129,7 +129,6 @@ const ProfileChangePassword = () => {
           </div>
         </div>
       </main>
-      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 };

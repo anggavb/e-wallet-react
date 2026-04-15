@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AuthLayout } from "@components/templates";
@@ -144,7 +144,6 @@ const Register = () => {
           </a>
         </p>
       </nav>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </AuthLayout>
   );
 };

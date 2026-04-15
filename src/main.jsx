@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "@/redux/store";
 import { LoadingOverlay } from "@components/molecules";
@@ -15,6 +16,11 @@ createRoot(document.getElementById("root")).render(
       <StrictMode>
         <BrowserRouter>
           <AppRouter />
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar
+          />
         </BrowserRouter>
       </StrictMode>
     </PersistGate>
