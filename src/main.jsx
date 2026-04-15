@@ -17,9 +17,10 @@ createRoot(document.getElementById("root")).render(
         <BrowserRouter>
           <AppRouter />
           <ToastContainer
+            stacked
             position="top-right"
             autoClose={3000}
-            hideProgressBar
+            theme="colored"
           />
         </BrowserRouter>
       </StrictMode>

@@ -66,7 +66,7 @@ function Dashboard() {
             </div>
 
             <div className="relative flex h-50 gap-4 sm:h-75">
-              {/* <FinancialChart data={dataFinancialChart} chartType={chartType} /> */}
+              <FinancialChart data={dataFinancialChart} chartType={chartType} />
             </div>
           </div>
         </section>
