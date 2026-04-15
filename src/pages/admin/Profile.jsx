@@ -232,19 +232,13 @@ function Profile() {
 
             {/* Email */}
             <FormField
-              {...register("email", {
-                required: true,
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email address",
-                },
-              })}
+              value={userLogin.email}
               noValidate
               label="Email"
               id="email"
               type="email"
+              disabled
               placeholder="Enter Your Email"
-              name="email"
               icon={
                 <svg
                   width="16"
@@ -262,11 +256,6 @@ function Profile() {
                 </svg>
               }
             />
-            {errors.email && (
-              <span className="text-red-500 text-sm">
-                {errors.email.message || "Email is required"}
-              </span>
-            )}
 
             {/* Password */}
             <div className="form-group">
