@@ -15,8 +15,10 @@ const useCheckLogin = () => {
       return;
     } else if (!userLoggedIn) {
       return navigate("/", { replace: true });
+    } else if (userLoggedIn && publicPaths.includes(currentPath)) {
+      return navigate("/admin", { replace: true });
     }
-    return navigate("/admin", { replace: true });
+    // return navigate("/admin", { replace: true });
   }, [users, userLoggedIn, navigate, currentPath]);
 }
 
