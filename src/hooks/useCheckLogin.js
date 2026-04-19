@@ -11,12 +11,12 @@ const useCheckLogin = () => {
   useEffect(() => {
     const publicPaths = ["/login", "/register", "/", "/enter-pin", "/forgot-password", ""];
 
-    if (publicPaths.includes(currentPath)) {
+    if (publicPaths.includes(currentPath) && !userLoggedIn) {
       return;
     } else if (!userLoggedIn) {
       return navigate("/", { replace: true });
     }
-    // return navigate("/admin", { replace: true });
+    return navigate("/admin", { replace: true });
   }, [users, userLoggedIn, navigate, currentPath]);
 }
 
