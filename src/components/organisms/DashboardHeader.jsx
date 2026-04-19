@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { useSelector } from "react-redux";
 import { LogoutIcon } from "@components/atoms/icons";
 import { listMenus } from "@utils";
+import useLogoutStore from "@zustand/store";
 
 /**
  * DashboardHeader component that renders the header for the dashboard layout.
@@ -12,6 +13,7 @@ import { listMenus } from "@utils";
 
 function DashboardHeader() {
   const { user: userLoggedIn } = useSelector((state) => state.userLogin);
+  const { toggleModalLogout } = useLogoutStore((state) => state);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -84,12 +86,16 @@ function DashboardHeader() {
             </svg>{" "}
             Profile
           </Link>
-          <Link
-            to="/login"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-[0.9rem] font-medium transition-colors duration-200 text-[#dc2626] mt-2 hover:bg-[#f9fafb]"
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setIsProfileMenuOpen(false);
+              toggleModalLogout();
+            }}
+            className="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-lg text-[0.9rem] font-medium transition-colors duration-200 text-[#dc2626] mt-2 hover:bg-[#f9fafb]"
           >
             <LogoutIcon className="stroke-red-600" /> Keluar
-          </Link>
+          </button>
         </div>
       )}
 
