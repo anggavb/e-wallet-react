@@ -1,4 +1,4 @@
-import { AuthLayout } from "@components/templates";
+import { AuthMiddleLayout } from "@components/templates";
 import { AuthHeader } from "@components/organisms";
 import { InputField } from "@components/molecules";
 import { Button } from "@components/atoms";
@@ -8,10 +8,7 @@ import { usePageTitle } from "@hooks";
 const ForgotPassword = () => {
   usePageTitle("Forgot Password");
   return (
-    <AuthLayout
-      imageSrc="/3d-hand-making-cashless-payment-from-smartphone 1 copy.png"
-      imageAlt="3D Hand holding a wallet"
-    >
+    <AuthMiddleLayout>
       <AuthHeader
         title="Fill Out Form Correctly 👋"
         subtitle="We will send new password to your email."
@@ -41,7 +38,7 @@ const ForgotPassword = () => {
           </a>
         </p>
       </nav>
-    </AuthLayout>
+    </AuthMiddleLayout>
   );
 };
 
