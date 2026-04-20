@@ -1,3 +1,7 @@
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+
 import { AuthMiddleLayout } from "@components/templates";
 import { AuthHeader } from "@components/organisms";
 import { InputField } from "@components/molecules";
@@ -7,6 +11,22 @@ import { usePageTitle } from "@hooks";
 
 const ForgotPassword = () => {
   usePageTitle("Forgot Password");
+  const navigate = useNavigate();
+
+  const { users } = useSelector((state) => state.users);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const user = users.find((user) => user.email === email);
+    if (user) {
+      toast.success(`A new password has been sent to ${email}`);
+      setTimeout(() => {
+        navigate(`/reset-password?email=${email}`, { replace: true });
+      }, 1500);
+    } else {
+      toast.error("Email not found");
+    }
+  };
   return (
     <AuthMiddleLayout>
       <AuthHeader
@@ -14,7 +34,7 @@ const ForgotPassword = () => {
         subtitle="We will send new password to your email."
       />
 
-      <form action="#" method="POST" className="flex flex-col gap-4 mt-2">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-2">
         <InputField
           id="email"
           type="email"

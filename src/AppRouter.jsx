@@ -10,7 +10,14 @@ import {
   ProfileChangePassword,
   ProfileChangePin,
 } from "@pages/admin";
-import { Login, Register, Landing, EnterPin, ForgotPassword } from "@pages";
+import {
+  Login,
+  Register,
+  Landing,
+  EnterPin,
+  ForgotPassword,
+  ResetPassword,
+} from "@pages";
 import { useCheckLogin } from "@hooks";
 
 function AppRouter() {
@@ -22,6 +29,7 @@ function AppRouter() {
       <Route path="register" element={<Register />} />
       <Route path="enter-pin" element={<EnterPin />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="reset-password" element={<ResetPassword />} />
       <Route path="admin" element={<AdminWrapper />}>
         <Route index element={<Dashboard />} />
         <Route path="transfer">
