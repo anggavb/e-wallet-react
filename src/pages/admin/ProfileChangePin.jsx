@@ -1,8 +1,10 @@
 import { Button } from "@components/atoms";
 import { PinInput } from "@components/molecules";
 import { ProfileIcon } from "@components/atoms/icons";
+import { usePageTitle } from "@hooks";
 
 function ProfileChangePin() {
+  usePageTitle("Change Pin");
   return (
     <main className="page-main md:col-span-1 lg:col-span-2">
       <div className="mb-4 page-header">
@@ -13,7 +15,7 @@ function ProfileChangePin() {
       </div>
 
       <section>
-        <div className="justify-center p-4 bg-white border border-neutral-200 sm:p-6 lg:p-8 shadow-sm">
+        <div className="text-center justify-center p-4 bg-gray-50 border border-neutral-200 sm:p-6 lg:p-8 shadow-sm">
           <div className="mb-2">
             <h1 className="text-[1.3rem] sm:text-[1.5rem] lg:text-[1.8rem] font-bold leading-snug text-neutral-800 mb-1">
               Change Pin 👋
@@ -23,14 +25,10 @@ function ProfileChangePin() {
             </p>
           </div>
 
-          <form
-            action="#"
-            method="POST"
-            className="flex flex-col mt-2 md:w-fit"
-          >
+          <form action="#" method="POST">
             <PinInput length={6} />
 
-            <Button type="submit" className="w-full sm:w-auto px-10 ml-auto">
+            <Button type="submit" className="w-full p-4">
               Submit
             </Button>
           </form>

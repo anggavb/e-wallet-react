@@ -34,13 +34,12 @@ const Login = () => {
       (user) => user.email === data.email && user.password === data.password,
     );
     if (data && user) {
-      dispatch(
-        userLoginAction.login({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-        }),
-      );
+      dispatch(userLoginAction.login(user));
+      if (!user.pin || user.pin === "") {
+        navigate("/enter-pin", { replace: true });
+        toast.info("Please set your pin for better experience!");
+        return;
+      }
       navigate("/admin", { replace: true });
       toast.success(`Welcome back, ${user.name}!`);
       return;

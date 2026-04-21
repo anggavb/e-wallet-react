@@ -15,13 +15,13 @@ createRoot(document.getElementById("root")).render(
     <PersistGate loading={<LoadingOverlay />} persistor={persistor}>
       <StrictMode>
         <BrowserRouter>
-          <AppRouter />
           <ToastContainer
             stacked
             position="top-right"
             autoClose={3000}
             theme="colored"
           />
+          <AppRouter />
         </BrowserRouter>
       </StrictMode>
     </PersistGate>

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
-import { AdminWrapper } from "@layouts";
+import { useSelector } from "react-redux";
+import { AdminWrapper, ProtectedRoute } from "@layouts";
 import {
   Dashboard,
   History,
@@ -18,10 +19,9 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "@pages";
-import { useCheckLogin } from "@hooks";
 
 function AppRouter() {
-  useCheckLogin();
+  const { user: userLoggedIn } = useSelector((state) => state.userLogin);
   return (
     <Routes>
       <Route index element={<Landing />} />
@@ -30,7 +30,14 @@ function AppRouter() {
       <Route path="enter-pin" element={<EnterPin />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
       <Route path="reset-password" element={<ResetPassword />} />
-      <Route path="admin" element={<AdminWrapper />}>
+      <Route
+        path="admin"
+        element={
+          <ProtectedRoute userLoggedIn={userLoggedIn}>
+            <AdminWrapper />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Dashboard />} />
         <Route path="transfer">
           <Route index element={<Transfer />} />
