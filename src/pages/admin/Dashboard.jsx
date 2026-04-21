@@ -21,7 +21,7 @@ function Dashboard() {
     <>
       {/* Main Content */}
       <main className="flex flex-col gap-4 p-3 sm:p-6 sm:gap-6 md:p-8 xl:p-10 2xl:p-12">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
           {listWidget.map((widget) => (
             <Widget key={widget.name} widget={widget} />
           ))}
