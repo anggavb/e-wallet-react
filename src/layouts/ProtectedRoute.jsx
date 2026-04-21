@@ -1,11 +1,17 @@
-import { Navigate } from "react-router";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const ProtectedRoute = ({ children, userLoggedIn }) => {
-  if (!userLoggedIn) {
-    toast.error("You must be logged in to access this page");
-    return <Navigate to="/" replace />;
-  }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      toast.error("You must be logged in to access this page");
+      navigate("/");
+    }
+  }, [navigate, userLoggedIn, children]);
+
   return children;
 };
 

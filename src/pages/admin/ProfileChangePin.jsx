@@ -1,10 +1,40 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 import { Button } from "@components/atoms";
 import { PinInput } from "@components/molecules";
 import { ProfileIcon } from "@components/atoms/icons";
 import { usePageTitle } from "@hooks";
 
+import { userLoginAction } from "@redux/slices/userLogin";
+import { usersAction } from "@redux/slices/userRegistered";
+
 function ProfileChangePin() {
   usePageTitle("Change Pin");
+  const [pin, setPin] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user: userLoggedIn } = useSelector((state) => state.userLogin);
+
+  const handlePinChange = (pinChange) => {
+    setPin(pinChange);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (pin.length === 6) {
+      dispatch(usersAction.updatePin({ id: userLoggedIn.id, pin }));
+      dispatch(userLoginAction.updated({ ...userLoggedIn, pin }));
+      toast.success("Pin set successfully!");
+      setPin("");
+      setTimeout(() => {
+        navigate("/admin/profile");
+      }, 1000);
+      return;
+    }
+    toast.error("Pin must be 6 digits long");
+  };
   return (
     <main className="page-main md:col-span-1 lg:col-span-2">
       <div className="mb-4 page-header">
@@ -25,8 +55,8 @@ function ProfileChangePin() {
             </p>
           </div>
 
-          <form action="#" method="POST">
-            <PinInput length={6} />
+          <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+            <PinInput length={6} callbackForm={handlePinChange} />
 
             <Button type="submit" className="w-full p-4">
               Submit

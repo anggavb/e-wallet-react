@@ -1,19 +1,33 @@
+import { useState } from "react";
 /**
  * A component for rendering a pin input field with a specified length.
  * @param {Object} props - The props for the component.
  * @param {number} props.length - The number of input fields to display.
  * @returns {JSX.Element} The rendered pin input component.
  */
-const PinInput = ({ length = 6 }) => {
+const PinInput = ({ length = 6, callbackForm }) => {
+  const [pin, setPin] = useState(Array(length).fill(""));
+
+  const handleChange = (value, idx) => {
+    const newPin = [...pin];
+    newPin[idx] = value;
+    setPin(newPin);
+    if (callbackForm) {
+      callbackForm(newPin.join(""));
+    }
+  };
+
   return (
     <div className="flex justify-center gap-2 mt-6 mb-8 sm:mt-8 sm:mb-12">
       {[...Array(length)].map((_, idx) => (
         <input
+          onChange={(e) => handleChange(e.target.value, idx)}
           onKeyDown={(e) => {
             if (e.key === "Backspace" && e.target.value === "" && idx > 0) {
               const prevInput = e.target.parentElement.children[idx - 1];
               prevInput.focus();
               prevInput.value = "";
+              handleChange("", idx - 1);
             }
           }}
           onInput={(e) => {

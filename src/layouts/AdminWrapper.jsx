@@ -7,6 +7,7 @@ import {
 } from "@components/organisms";
 import useLogoutStore from "@zustand/store";
 import { userLoginAction } from "@redux/slices/userLogin";
+import { toast } from "react-toastify";
 
 /**
  * AdminWrapper component that serves as a layout wrapper for admin-related pages.
@@ -18,8 +19,11 @@ function AdminWrapper() {
   const { modalLogout, toggleModalLogout } = useLogoutStore((state) => state);
   const handleConfirmLogout = () => {
     toggleModalLogout();
-    dispatch(userLoginAction.logout());
     navigate("/", { replace: true });
+    setTimeout(() => {
+      dispatch(userLoginAction.logout());
+    }, 50);
+    toast.info("Come back soon! 👋");
   };
   return (
     <>

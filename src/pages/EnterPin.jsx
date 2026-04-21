@@ -1,12 +1,44 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+
 import { AuthLayout } from "@components/templates";
 import { AuthHeader } from "@components/organisms";
 import { PinInput } from "@components/molecules";
 import { Button } from "@components/atoms";
-
 import { usePageTitle } from "@hooks";
+
+import { userLoginAction } from "@redux/slices/userLogin";
+import { usersAction } from "@redux/slices/userRegistered";
 
 const EnterPin = () => {
   usePageTitle("Enter Pin");
+  const [pin, setPin] = useState("");
+  const { user: userLoggedIn } = useSelector((state) => state.userLogin);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (pin.length === 6) {
+      dispatch(usersAction.updatePin({ id: userLoggedIn.id, pin }));
+      dispatch(userLoginAction.updated({ ...userLoggedIn, pin }));
+      toast.success("Pin set successfully!");
+
+      setTimeout(() => {
+        navigate("/admin");
+      }, 1000);
+      return;
+    }
+
+    toast.error("Pin must be 6 digits long");
+  };
+
+  const handlePinChange = (pinChange) => {
+    setPin(pinChange);
+  };
   return (
     <AuthLayout
       imageSrc="/enter-pin.png"
@@ -18,8 +50,8 @@ const EnterPin = () => {
         title="Enter Your Pin 👋"
         subtitle="Please save your pin because this so important."
       />
-      <form action="#" method="POST" className="flex flex-col mt-2 sm:mt-4">
-        <PinInput length={6} />
+      <form className="flex flex-col mt-2 sm:mt-4" onSubmit={handleSubmit}>
+        <PinInput length={6} callbackForm={handlePinChange} />
 
         <Button type="submit">Submit</Button>
       </form>
@@ -27,7 +59,7 @@ const EnterPin = () => {
         <p>
           Forgot Your Pin?{" "}
           <a
-            href="./profile-change-pin.html"
+            href="/admin/profile/change-pin"
             className="font-semibold transition-colors text-blue-700 hover:underline"
           >
             Reset
