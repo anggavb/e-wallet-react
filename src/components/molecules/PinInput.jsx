@@ -6,7 +6,7 @@
  */
 const PinInput = ({ length = 6 }) => {
   return (
-    <div className="flex justify-between gap-2 mt-6 mb-8 sm:mt-8 sm:mb-12">
+    <div className="flex justify-center gap-2 mt-6 mb-8 sm:mt-8 sm:mb-12">
       {[...Array(length)].map((_, idx) => (
         <input
           onKeyDown={(e) => {
