@@ -58,14 +58,24 @@ function TopUp() {
         usersAction.topUp({
           id: userLoggedIn.id,
           amount: Number(data.nominal),
+          payment_method: data.payment_method,
         }),
       );
+
+      const userBalance = userLoggedIn?.balance || 0;
       dispatch(
         userLoginAction.updated({
           ...userLoggedIn,
-          balance: userLoggedIn.balance
-            ? userLoggedIn.balance + Number(data.nominal)
-            : Number(data.nominal),
+          balance: userBalance + Number(data.nominal),
+          history: [
+            ...(userLoggedIn.history || []),
+            {
+              type: "top-up",
+              amount: Number(data.nominal),
+              payment_method: data.payment_method,
+              date: new Date().toISOString(),
+            },
+          ],
         }),
       );
       reset();
