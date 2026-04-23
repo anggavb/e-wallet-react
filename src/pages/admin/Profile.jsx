@@ -175,6 +175,7 @@ function Profile() {
               placeholder="Enter Full Name"
               name="name"
               noValidate
+              value={userLogin.name || ""}
               icon={
                 <svg width="20" height="20" viewBox="0 0 50 50" fill="none">
                   <path
@@ -212,6 +213,7 @@ function Profile() {
               placeholder="Enter Your Number Phone"
               name="phone"
               noValidate
+              value={userLogin.phone || ""}
               icon={
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
