@@ -6,6 +6,12 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
+ARG VITE_ENV=development
+ARG VITE_APP_TITLE="E-Wallet App"
+
+ENV VITE_ENV=${VITE_ENV}
+ENV VITE_APP_TITLE=${VITE_APP_TITLE}
+
 COPY . .
 
 RUN npm run build
