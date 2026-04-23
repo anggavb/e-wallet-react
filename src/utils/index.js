@@ -4,6 +4,7 @@ import listHistoryTransactions from './listHistoryTransactions';
 import dataFinancialChart from './dataFinancialChart';
 import listPaymentMethod from './listPaymentMethod';
 import getEnv from './getEnv';
+import formatRupiah from './moneyFormater';
 
 export {
   listMenus,
@@ -12,4 +13,5 @@ export {
   dataFinancialChart,
   listPaymentMethod,
   getEnv,
+  formatRupiah,
 };

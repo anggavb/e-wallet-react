@@ -36,6 +36,13 @@ const usersSlice = createSlice({
         user.id === payload.id ? { ...user, pin: payload.pin } : user,
       );
     },
+    topUp: (state, { payload }) => {
+      state.users = state.users.map((user) =>
+        user.id === payload.id
+          ? { ...user, balance: (user.balance || 0) + payload.amount }
+          : user,
+      );
+    },
   },
 });
 
