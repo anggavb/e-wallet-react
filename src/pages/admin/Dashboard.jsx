@@ -43,6 +43,25 @@ function Dashboard() {
               },
             }}
           />
+          <Widget
+            key="income"
+            widget={{
+              icon: BalanceIcon,
+              name: "Income",
+              content: formatRupiah(
+                userLoggedIn?.history
+                  ? userLoggedIn.history
+                      .filter((item) => item.type === "top-up")
+                      .reduce((sum, item) => sum + item.amount, 0)
+                  : 0,
+              ),
+              footer: {
+                growth: "+0.00%",
+                icon: StonkIcon,
+                color: "text-gray-600",
+              },
+            }}
+          />
           {listWidget.map((widget) => (
             <Widget key={widget.name} widget={widget} />
           ))}

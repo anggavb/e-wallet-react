@@ -1,27 +1,31 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router";
 import { usePageTitle } from "@hooks";
 import { HistoryIcon } from "@components/atoms/icons";
-import { listHistoryTransactions } from "@utils";
 import { PageHeader, SearchBox, Pagination } from "@components/molecules";
+import { formatRupiah } from "@utils";
 
 const PER_PAGE = 5;
 
 function History() {
   usePageTitle("History");
 
+  const { user: userLoggedIn } = useSelector((state) => state.userLogin);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter berdasarkan nama atau nomor telepon (case-insensitive)
-  const filtered = listHistoryTransactions.filter((item) => {
-    const q = query.toLowerCase().trim();
-    return (
-      item.name.toLowerCase().includes(q) ||
-      item.phone.toLowerCase().includes(q)
-    );
-  });
+  const filtered =
+    userLoggedIn?.history?.filter((item) => {
+      const q = query.toLowerCase().trim();
+      return (
+        item.name.toLowerCase().includes(q) ||
+        item.type.toLowerCase().includes(q)
+      );
+    }) || [];
 
   // Pagination slice dari hasil filter
   const paginated = filtered.slice(
@@ -84,12 +88,12 @@ function History() {
                     {item.name}
                   </span>
                   <span className="hidden flex-1 text-sm text-gray-500 sm:block">
-                    {item.phone}
+                    {item.phone ?? item.type}
                   </span>
                   <span
                     className={`font-semibold text-sm whitespace-nowrap ${item.isTransfer ? "text-green-500" : "text-red-500"}`}
                   >
-                    {item.amount}
+                    {formatRupiah(item.amount)}
                   </span>
                   <button
                     className="flex items-center justify-center shrink-0 p-1.5 transition-colors rounded-md hover:bg-red-100"

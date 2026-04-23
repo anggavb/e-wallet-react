@@ -70,6 +70,7 @@ function TopUp() {
           history: [
             ...(userLoggedIn.history || []),
             {
+              name: userLoggedIn.name,
               type: "top-up",
               amount: Number(data.nominal),
               payment_method: data.payment_method,
