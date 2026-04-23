@@ -63,7 +63,9 @@ function TopUp() {
       dispatch(
         userLoginAction.updated({
           ...userLoggedIn,
-          balance: userLoggedIn.balance + Number(data.nominal),
+          balance: userLoggedIn.balance
+            ? userLoggedIn.balance + Number(data.nominal)
+            : Number(data.nominal),
         }),
       );
       reset();
