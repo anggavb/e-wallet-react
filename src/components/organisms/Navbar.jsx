@@ -13,16 +13,21 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userLogin);
-  const { toggleModalLogout } = useLogoutStore((state) => state);
+  const { toggleModalLogout, setHandleConfirm } = useLogoutStore(
+    (state) => state,
+  );
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const handleConfirmLogout = () => {
     toggleModalLogout();
-    navigate("/", { replace: true });
-    setTimeout(() => {
-      dispatch(userLoginAction.logout());
-    }, 50);
-    toast.info("Come back soon! 👋");
+    setHandleConfirm(() => {
+      toggleModalLogout();
+      navigate("/", { replace: true });
+      setTimeout(() => {
+        dispatch(userLoginAction.logout());
+      }, 50);
+      toast.info("Come back soon! 👋");
+    });
   };
   return (
     <header className="py-4 bg-blue-700 text-white shadow-sm sticky top-0 z-100">

@@ -1,38 +1,32 @@
-import { Outlet, useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { Outlet } from "react-router";
 import {
   DashboardMenu,
   DashboardHeader,
   FloatingConfirm,
 } from "@components/organisms";
 import useLogoutStore from "@zustand/store";
-import { userLoginAction } from "@redux/slices/userLogin";
-import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 /**
  * AdminWrapper component that serves as a layout wrapper for admin-related pages.
  * @returns {JSX.Element}
  */
 function AdminWrapper() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { modalLogout, toggleModalLogout } = useLogoutStore((state) => state);
-  const handleConfirmLogout = () => {
-    toggleModalLogout();
-    navigate("/", { replace: true });
-    setTimeout(() => {
-      dispatch(userLoginAction.logout());
-    }, 50);
-    toast.info("Come back soon! 👋");
-  };
+  const { modalLogout, title, messages, handleConfirm, toggleModalLogout } =
+    useLogoutStore((state) => state);
+
+  useEffect(() => {
+    console.log(handleConfirm);
+  }, [handleConfirm]);
+
   return (
     <>
       <FloatingConfirm
         open={modalLogout}
-        title="Confirm Logout"
-        messages="Are you sure you want to logout?"
+        title={title}
+        messages={messages}
         handleOpen={toggleModalLogout}
-        handleConfirm={handleConfirmLogout}
+        handleConfirm={handleConfirm}
       />
       <div className="min-h-screen bg-slate-50 text-neutral-800 overflow-x-hidden">
         <DashboardHeader />

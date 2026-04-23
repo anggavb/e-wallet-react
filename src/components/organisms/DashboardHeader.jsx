@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import profile from "@/assets/images/Ellipse 185.png";
-import { Link } from "react-router";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 import { LogoutIcon } from "@components/atoms/icons";
 import { listMenus } from "@utils";
 import useLogoutStore from "@zustand/store";
+import { userLoginAction } from "@redux/slices/userLogin";
 
 /**
  * DashboardHeader component that renders the header for the dashboard layout.
@@ -12,14 +14,33 @@ import useLogoutStore from "@zustand/store";
  */
 
 function DashboardHeader() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user: userLoggedIn } = useSelector((state) => state.userLogin);
-  const { toggleModalLogout } = useLogoutStore((state) => state);
+  const { toggleModalLogout, setHandleConfirm } = useLogoutStore(
+    (state) => state,
+  );
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const handleConfirmLogout = () => {
+    toggleModalLogout();
+    setHandleConfirm(() => {
+      toggleModalLogout();
+      navigate("/", { replace: true });
+      setTimeout(() => {
+        dispatch(userLoginAction.logout());
+      }, 50);
+      toast.info("Come back soon! 👋");
+    });
+  };
+
   return (
     <header className="sticky top-0 z-100 flex items-center justify-between h-14 px-3 py-2 bg-white border-b border-gray-200 sm:h-16 sm:px-4 sm:py-3 md:h-17.5 md:px-8 md:py-4">
-      <div className="flex items-center gap-2.5 text-xl font-semibold text-blue-600 font-logo">
+      <div
+        onClick={() => navigate("/")}
+        className="cursor-pointer flex items-center gap-2.5 text-xl font-semibold text-blue-600 font-logo"
+      >
         <img src="/money-wallet.png" alt="wallet" width="32" />
         <span>E-Wallet</span>
       </div>
@@ -90,7 +111,7 @@ function DashboardHeader() {
             onClick={(e) => {
               e.preventDefault();
               setIsProfileMenuOpen(false);
-              toggleModalLogout();
+              handleConfirmLogout();
             }}
             className="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-lg text-[0.9rem] font-medium transition-colors duration-200 text-[#dc2626] mt-2 hover:bg-[#f9fafb]"
           >

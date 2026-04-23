@@ -1,3 +1,8 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+
+import { userLoginAction } from "@redux/slices/userLogin";
 import { Navigation } from "@components/atoms";
 import { listMenus } from "@utils";
 import useLogoutStore from "@zustand/store";
@@ -7,7 +12,22 @@ import useLogoutStore from "@zustand/store";
  * @returns {JSX.Element}
  */
 function DashboardMenu() {
-  const { toggleModalLogout } = useLogoutStore((state) => state);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { toggleModalLogout, setHandleConfirm } = useLogoutStore(
+    (state) => state,
+  );
+  const handleConfirmLogout = () => {
+    toggleModalLogout();
+    setHandleConfirm(() => {
+      toggleModalLogout();
+      navigate("/", { replace: true });
+      setTimeout(() => {
+        dispatch(userLoginAction.logout());
+      }, 50);
+      toast.info("Come back soon! 👋");
+    });
+  };
   return (
     <nav className="hidden flex-col p-8 px-3 bg-slate-50 border-r border-gray-200 md:flex lg:px-4">
       {listMenus.map((menu) => (
@@ -18,7 +38,7 @@ function DashboardMenu() {
             menu.name === "Logout"
               ? (e) => {
                   e.preventDefault();
-                  toggleModalLogout();
+                  handleConfirmLogout();
                 }
               : () => {}
           }
