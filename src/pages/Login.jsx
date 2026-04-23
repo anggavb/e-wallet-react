@@ -13,11 +13,13 @@ import {
   MailIcon,
   PasswordIcon,
 } from "@components/atoms/icons";
-import { usePageTitle } from "@hooks";
+import { usePageTitle, useRedirectIfLoggedIn } from "@hooks";
 import { userLoginAction } from "@redux/slices/userLogin";
 
 const Login = () => {
   usePageTitle("Login");
+
+  useRedirectIfLoggedIn();
 
   const {
     register,
