@@ -5,7 +5,6 @@ import {
   FloatingConfirm,
 } from "@components/organisms";
 import useLogoutStore from "@zustand/store";
-import { useEffect } from "react";
 
 /**
  * AdminWrapper component that serves as a layout wrapper for admin-related pages.
@@ -14,10 +13,6 @@ import { useEffect } from "react";
 function AdminWrapper() {
   const { modalLogout, title, messages, handleConfirm, toggleModalLogout } =
     useLogoutStore((state) => state);
-
-  useEffect(() => {
-    console.log(handleConfirm);
-  }, [handleConfirm]);
 
   return (
     <>
