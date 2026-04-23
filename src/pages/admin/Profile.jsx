@@ -46,7 +46,6 @@ function Profile() {
       ...userLogin,
       name: data.name,
       phone: data.phone,
-      email: data.email,
     };
 
     dispatch(userLoginAction.updated(updatedUser));
