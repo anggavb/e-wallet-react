@@ -2,17 +2,6 @@ import { BalanceIcon, IncomeIcon, ExpenseIcon, StonkIcon, DownStonkIcon } from '
 
 export default [
   {
-    icon: BalanceIcon,
-    name: 'Balance',
-    content: 'Rp.120.000',
-    footer: {
-      growth: '+2%',
-      icon: StonkIcon,
-      time: '3 Days Ago',
-      color: 'text-emerald-600',
-    },
-  },
-  {
     icon: IncomeIcon,
     name: 'Income',
     content: 'Rp2.120.000',

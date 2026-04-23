@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
 import { usePageTitle } from "@hooks";
 import {
   Widget,
@@ -10,18 +11,38 @@ import {
   listWidget,
   listHistoryTransactions,
   dataFinancialChart,
+  formatRupiah,
 } from "@utils";
-import { MoneyInsertIcon, TransferIcon } from "@components/atoms/icons";
+import {
+  MoneyInsertIcon,
+  TransferIcon,
+  BalanceIcon,
+  StonkIcon,
+} from "@components/atoms/icons";
 
 function Dashboard() {
   usePageTitle("Dashboard");
   const [chartType, setChartType] = useState("All");
+  const { user: userLoggedIn } = useSelector((state) => state.userLogin);
 
   return (
     <>
       {/* Main Content */}
       <main className="flex flex-col gap-4 p-3 sm:p-6 sm:gap-6 md:p-8 xl:p-10 2xl:p-12">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+          <Widget
+            key="balance"
+            widget={{
+              icon: BalanceIcon,
+              name: "Balance",
+              content: formatRupiah(userLoggedIn?.balance || 0),
+              footer: {
+                growth: "+0.00%",
+                icon: StonkIcon,
+                color: "text-gray-600",
+              },
+            }}
+          />
           {listWidget.map((widget) => (
             <Widget key={widget.name} widget={widget} />
           ))}
