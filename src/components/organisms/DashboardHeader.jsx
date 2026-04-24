@@ -52,7 +52,9 @@ function DashboardHeader() {
           {userLoggedIn?.name || "noname"}
         </span>
         <img
-          src={profile}
+          src={
+            userLoggedIn && userLoggedIn.avatar ? userLoggedIn.avatar : profile
+          }
           alt="Profile"
           className="hidden md:inline w-9 h-9 rounded-full object-cover"
         />
