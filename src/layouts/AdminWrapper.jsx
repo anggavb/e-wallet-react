@@ -4,7 +4,9 @@ import {
   DashboardHeader,
   FloatingConfirm,
 } from "@components/organisms";
+import { LoadingOverlay } from "@components/molecules";
 import useLogoutStore from "@zustand/store";
+import spinner from "@/zustand/spinner";
 
 /**
  * AdminWrapper component that serves as a layout wrapper for admin-related pages.
@@ -13,6 +15,8 @@ import useLogoutStore from "@zustand/store";
 function AdminWrapper() {
   const { modalLogout, title, messages, handleConfirm, toggleModalLogout } =
     useLogoutStore((state) => state);
+
+  const { isLoading } = spinner((state) => state);
 
   return (
     <>
@@ -30,6 +34,7 @@ function AdminWrapper() {
           <Outlet />
         </div>
       </div>
+      <LoadingOverlay isOpen={isLoading} />
     </>
   );
 }

@@ -6,7 +6,7 @@ const useRedirectIfLoggedIn = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.userLogin);
   useEffect(() => {
-    if (user) {
+    if (user && user.pin) {
       navigate("/admin", { replace: true });
     }
   }, [user, navigate]);

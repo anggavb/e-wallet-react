@@ -1,5 +1,21 @@
-function PinModal({ isOpen, onNext }) {
+import { useState } from "react";
+import { PinInput } from "@components/molecules";
+
+function PinModal({ isOpen, onNext, onFailed, user }) {
+  const [pin, setPin] = useState("");
   if (!isOpen) return null;
+
+  const handlePinChange = (pinChange) => {
+    setPin(pinChange);
+  };
+
+  const handleCheckPin = () => {
+    if (pin === user.pin) {
+      onNext();
+    } else {
+      onFailed();
+    }
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center w-full h-full p-4 bg-black/50 z-1000">
@@ -17,20 +33,11 @@ function PinModal({ isOpen, onNext }) {
           </p>
 
           <div className="flex justify-between gap-1 mb-10 sm:gap-2">
-            {[1, "", "", "", "", ""].map((val, idx) => (
-              <input
-                key={idx}
-                type="text"
-                maxLength="1"
-                defaultValue={val}
-                readOnly={idx === 0}
-                className={`w-9 h-12 sm:w-11 sm:h-14 border-b-2 text-center text-xl sm:text-2xl font-medium outline-none bg-transparent transition-colors focus:border-blue-700 ${val ? "border-blue-700 text-neutral-800" : "border-neutral-200 text-neutral-800"}`}
-              />
-            ))}
+            <PinInput length={6} callbackForm={handlePinChange} />
           </div>
 
           <button
-            onClick={onNext}
+            onClick={handleCheckPin}
             className="flex justify-center w-full p-4 text-base font-semibold text-white transition-all duration-200 border-none rounded-lg cursor-pointer bg-blue-700 hover:bg-blue-900 active:scale-[0.98]"
           >
             Next

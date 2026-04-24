@@ -55,17 +55,6 @@ const EnterPin = () => {
 
         <Button type="submit">Submit</Button>
       </form>
-      <nav className="mt-8 text-[0.95rem] text-center text-gray-500">
-        <p>
-          Forgot Your Pin?{" "}
-          <a
-            href="/admin/profile/change-pin"
-            className="font-semibold transition-colors text-blue-700 hover:underline"
-          >
-            Reset
-          </a>
-        </p>
-      </nav>
     </AuthLayout>
   );
 };
