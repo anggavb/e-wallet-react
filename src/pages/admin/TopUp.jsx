@@ -8,6 +8,7 @@ import { Button } from "@components/atoms/";
 import { FloatingConfirm } from "@components/organisms";
 import { usePageTitle } from "@hooks";
 import { listPaymentMethod, formatRupiah } from "@utils";
+import { profile } from "@/assets/images";
 
 import { useDispatch, useSelector } from "react-redux";
 import { usersAction } from "@redux/slices/userRegistered";
@@ -21,9 +22,9 @@ function TopUp() {
     useLogoutStore((state) => state);
 
   const [delivery, setDelivery] = useState(0);
+  const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
   const { user: userLoggedIn } = useSelector((state) => state.userLogin);
-  const tax = 4000;
 
   const {
     register,
@@ -40,49 +41,59 @@ function TopUp() {
     const isBank = listPaymentMethod.find(
       (method) => method.value === watchPaymentMethod,
     )?.isBank;
-    if (isBank) {
-      setDelivery(-5000);
+    if (watchNominal) {
+      if (isBank) {
+        setDelivery(-5000);
+      } else {
+        setDelivery(0);
+      }
+      setTax(4000);
     } else {
+      setTax(0);
       setDelivery(0);
     }
 
     setTotal(Number(watchNominal) + Number(delivery) + Number(tax));
-  }, [watchPaymentMethod, watchNominal, delivery]);
+  }, [watchPaymentMethod, watchNominal, delivery, tax]);
 
   const handleTopUp = (data) => {
     changeMessages("Are you sure you want to top up your account?");
     changeTitle("Confirm Top Up");
-    setHandleConfirm(() => {
-      toggleModalLogout();
-      dispatch(
-        usersAction.topUp({
-          id: userLoggedIn.id,
-          amount: Number(data.nominal),
-          payment_method: data.payment_method,
-        }),
-      );
+    if (total > 0) {
+      setHandleConfirm(() => {
+        toggleModalLogout();
+        dispatch(
+          usersAction.topUp({
+            id: userLoggedIn.id,
+            amount: Number(data.nominal),
+            payment_method: data.payment_method,
+          }),
+        );
 
-      const userBalance = userLoggedIn?.balance || 0;
-      dispatch(
-        userLoginAction.updated({
-          ...userLoggedIn,
-          balance: userBalance + Number(data.nominal),
-          history: [
-            ...(userLoggedIn.history || []),
-            {
-              name: userLoggedIn.name,
-              type: "top-up",
-              amount: Number(data.nominal),
-              payment_method: data.payment_method,
-              date: new Date().toISOString(),
-            },
-          ],
-        }),
-      );
-      reset();
-      toast.success("Top up successful! 🎉");
-    });
-    toggleModalLogout();
+        const userBalance = userLoggedIn?.balance || 0;
+        dispatch(
+          userLoginAction.updated({
+            ...userLoggedIn,
+            balance: userBalance + Number(data.nominal),
+            history: [
+              ...(userLoggedIn.history || []),
+              {
+                userId: userLoggedIn.id,
+                type: "top-up",
+                amount: Number(data.nominal),
+                payment_method: data.payment_method,
+                date: new Date().toISOString(),
+              },
+            ],
+          }),
+        );
+        reset();
+        toast.success("Top up successful! 🎉");
+      });
+      toggleModalLogout();
+      return;
+    }
+    toast.error("Please enter a valid nominal amount! ❌");
   };
   return (
     <main className="page-main md:col-span-1 lg:col-span-2">
@@ -100,16 +111,16 @@ function TopUp() {
               <label className="form-label">Account Information</label>
               <div className="flex items-center gap-4 px-4 py-3.5 bg-gray-50 rounded-lg sm:px-5 sm:py-4">
                 <img
-                  src="https://i.pravatar.cc/150?img=11"
-                  alt="Ghaluh Wizard"
+                  src={userLoggedIn?.avatar || profile}
+                  alt={userLoggedIn?.name || "Unknown User"}
                   className="object-cover shrink-0 w-12 h-12 rounded-xl sm:w-14 sm:h-14"
                 />
                 <div className="flex flex-col gap-1">
                   <h4 className="text-base font-semibold text-neutral-800">
-                    Ghaluh Wizard
+                    {userLoggedIn?.name || "Unknown User"}
                   </h4>
                   <p className="text-sm text-gray-500 sm:text-[0.85rem]">
-                    (239) 555-0108
+                    {userLoggedIn?.phone || "No Phone Number"}
                   </p>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 mt-1 text-xs font-semibold text-emerald-600 bg-emerald-600/10 border border-emerald-600/25 rounded-full w-fit">
                     <i className="ph-fill ph-check-circle"></i> Verified
@@ -188,7 +199,7 @@ function TopUp() {
                 </span>
               </div>
               <div className="flex items-center justify-between mb-3.5 text-sm sm:text-base">
-                <span className="font-normal text-neutral-800">Delivery</span>
+                <span className="font-normal text-neutral-800">Discount</span>
                 <span className="font-semibold text-neutral-800">
                   {formatRupiah(delivery)}
                 </span>

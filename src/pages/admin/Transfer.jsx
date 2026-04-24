@@ -3,23 +3,16 @@ import { useSelector } from "react-redux";
 import { usePageTitle } from "@hooks";
 import { TransferIcon } from "@components/atoms/icons";
 import { PageHeader, SearchBox, Stepper } from "@components/molecules";
-import spinner from "@/zustand/spinner";
+import { useLoadSpinner } from "@hooks";
 
 const TRANSFER_STEPS = ["Find People", "Set Nominal", "Finish"];
 
 function Transfer() {
   usePageTitle("Transfer");
-  const { toggleSpinner } = spinner((state) => state);
+  const toggleSpinner = useLoadSpinner();
   const { users } = useSelector((state) => state.users);
   const { user } = useSelector((state) => state.userLogin);
 
-  const handleLoading = () => {
-    toggleSpinner();
-
-    setTimeout(() => {
-      toggleSpinner();
-    }, 1000);
-  };
   return (
     <main className="page-main md:col-span-1 lg:col-span-2">
       <PageHeader
@@ -52,7 +45,7 @@ function Transfer() {
               .map((person, index) => (
                 <Link
                   to={`detail?userId=${person.id}`}
-                  onClick={handleLoading}
+                  onClick={toggleSpinner}
                   key={index}
                   className="block group"
                 >

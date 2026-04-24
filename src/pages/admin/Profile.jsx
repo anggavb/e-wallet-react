@@ -13,8 +13,14 @@ import { Button } from "@components/atoms";
 import { userLoginAction } from "@redux/slices/userLogin";
 import { usersAction } from "@redux/slices/userRegistered";
 
+import { useLoadSpinner } from "@hooks";
+
 function Profile() {
-  const [avatarPreview, setAvatarPreview] = useState(profile);
+  const toggleSpinner = useLoadSpinner();
+  const { user: userLogin } = useSelector((state) => state.userLogin);
+  const [avatarPreview, setAvatarPreview] = useState(
+    userLogin && userLogin.avatar ? userLogin.avatar : profile,
+  );
   const fileInputRef = useRef(null);
 
   const {
@@ -24,20 +30,31 @@ function Profile() {
     reset,
   } = useForm();
 
-  const { user: userLogin } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      toggleSpinner();
       const reader = new FileReader();
-      reader.onload = (e) => setAvatarPreview(e.target.result);
+      reader.onload = (e) => {
+        setAvatarPreview(e.target.result);
+        dispatch(
+          userLoginAction.updated({ ...userLogin, avatar: e.target.result }),
+        );
+        dispatch(
+          usersAction.updateUser({ ...userLogin, avatar: e.target.result }),
+        );
+      };
       reader.readAsDataURL(file);
     }
   };
 
   const handleDeleteAvatar = () => {
+    toggleSpinner();
     setAvatarPreview(null);
+    dispatch(userLoginAction.updated({ ...userLogin, avatar: null }));
+    dispatch(usersAction.updateUser({ ...userLogin, avatar: null }));
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
