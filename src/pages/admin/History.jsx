@@ -11,15 +11,24 @@ const PER_PAGE = 5;
 function History() {
   usePageTitle("History");
 
+  const { users } = useSelector((state) => state.users);
   const { user: userLoggedIn } = useSelector((state) => state.userLogin);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Filter berdasarkan nama atau nomor telepon (case-insensitive)
+  const history =
+    userLoggedIn?.history?.map((item) => {
+      const user = users.find((u) => u.id === item.userId);
+      return {
+        ...item,
+        name: item.name || (user ? user.name : "Unknown"),
+      };
+    }) || [];
   const filtered =
-    userLoggedIn?.history?.filter((item) => {
+    history?.filter((item) => {
+      console.log(item);
       const q = query.toLowerCase().trim();
       return (
         item.name.toLowerCase().includes(q) ||
