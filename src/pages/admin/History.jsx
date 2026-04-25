@@ -5,6 +5,7 @@ import { usePageTitle } from "@hooks";
 import { HistoryIcon } from "@components/atoms/icons";
 import { PageHeader, SearchBox, Pagination } from "@components/molecules";
 import { formatRupiah } from "@utils";
+import { profile } from "@/assets/images";
 
 const PER_PAGE = 5;
 
@@ -89,7 +90,7 @@ function History() {
                   className={`flex items-center gap-3 py-3 px-2 border-b border-gray-200 transition-colors duration-150 sm:py-4 sm:px-4 sm:gap-5 ${index % 2 !== 0 ? "bg-gray-50" : ""} last:border-b-0`}
                 >
                   <img
-                    src={item.photo}
+                    src={item.avatar || profile}
                     alt={item.name}
                     className="shrink-0 object-cover w-10 h-10 rounded-lg sm:w-11 sm:h-11"
                   />
