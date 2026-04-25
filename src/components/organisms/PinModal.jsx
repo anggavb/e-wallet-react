@@ -1,8 +1,16 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { PinInput } from "@components/molecules";
+import { useLoadSpinner } from "@hooks";
+
+import { usersAction } from "@redux/slices/userRegistered";
+import { userLoginAction } from "@redux/slices/userLogin";
 
 function PinModal({ isOpen, onNext, onFailed, user }) {
+  const dispatch = useDispatch();
+  const toggleSpinner = useLoadSpinner();
   const [pin, setPin] = useState("");
+  const { user: userLogin } = useSelector((state) => state.userLogin);
   if (!isOpen) return null;
 
   const handlePinChange = (pinChange) => {
@@ -10,8 +18,32 @@ function PinModal({ isOpen, onNext, onFailed, user }) {
   };
 
   const handleCheckPin = () => {
-    if (pin === user.pin) {
+    toggleSpinner();
+    if (pin === userLogin.pin) {
       onNext();
+
+      const updateTransactionHistory = {
+        senderId: user.id,
+        recipientId: user.transferTo.id,
+        amount: user.data.amount,
+        notes: user.data.notes,
+      };
+      dispatch(usersAction.transfer(updateTransactionHistory));
+      dispatch(
+        userLoginAction.updated({
+          balance: (userLogin.balance || 0) - user.data.amount,
+          history: [
+            ...(userLogin.history || []),
+            {
+              userId: userLogin.id,
+              type: "transfer",
+              amount: user.data.amount,
+              recipient: user.transferTo.name,
+              date: new Date().toISOString(),
+            },
+          ],
+        }),
+      );
     } else {
       onFailed();
     }
@@ -21,7 +53,7 @@ function PinModal({ isOpen, onNext, onFailed, user }) {
     <div className="fixed inset-0 flex items-center justify-center w-full h-full p-4 bg-black/50 z-1000">
       <div className="w-full max-w-112.5 overflow-hidden bg-white shadow-2xl rounded-2xl">
         <div className="p-5 font-semibold tracking-wide uppercase border-b sm:p-6 border-neutral-200 text-[0.8rem] text-neutral-800">
-          TRANSFER TO GHALUH 1
+          TRANSFER TO {user.name}
         </div>
 
         <div className="p-6 sm:py-8 sm:px-10">

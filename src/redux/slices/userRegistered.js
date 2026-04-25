@@ -42,6 +42,28 @@ const usersSlice = createSlice({
           : user,
       );
     },
+    transfer: (state, { payload }) => {
+      const senderIndex = state.users.findIndex((user) => user.id === payload.senderId);
+      const recipientIndex = state.users.findIndex((user) => user.id === payload.recipientId);
+
+      if (senderIndex !== -1 && recipientIndex !== -1) {
+        const sender = state.users[senderIndex];
+        const recipient = state.users[recipientIndex];
+
+        if ((sender.balance || 0) >= payload.amount) {
+          state.users[senderIndex] = {
+            ...sender,
+            balance: (sender.balance || 0) - payload.amount,
+            history: [...(sender.history || []), { userId: sender.id, type: "transfer", amount: payload.amount, recipient: recipient.name, date: new Date().toISOString() }],
+          };
+          state.users[recipientIndex] = {
+            ...recipient,
+            balance: (recipient.balance || 0) + payload.amount,
+            history: [...(recipient.history || []), { userId: recipient.id, type: "receive", amount: payload.amount, sender: sender.name, date: new Date().toISOString() }],
+          };
+        }
+      }
+    },
   },
 });
 

@@ -4,6 +4,7 @@ import { usePageTitle } from "@hooks";
 import { TransferIcon } from "@components/atoms/icons";
 import { PageHeader, SearchBox, Stepper } from "@components/molecules";
 import { useLoadSpinner } from "@hooks";
+import { profile } from "@/assets/images";
 
 const TRANSFER_STEPS = ["Find People", "Set Nominal", "Finish"];
 
@@ -53,7 +54,7 @@ function Transfer() {
                     className={`flex items-center px-3 py-3 gap-3 sm:px-4 sm:py-4 sm:gap-4 md:gap-8 transition-colors rounded-lg group-hover:bg-gray-50 ${index % 2 !== 0 ? "bg-gray-50" : ""}`}
                   >
                     <img
-                      src={`https://i.pravatar.cc/150?img=${person.id}`}
+                      src={person.avatar || profile}
                       alt="User"
                       className="object-cover rounded-lg w-9 h-9 sm:w-11 sm:h-11"
                     />

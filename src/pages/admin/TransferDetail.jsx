@@ -19,12 +19,7 @@ function TransferDetail() {
   const [pinModal, setPinModal] = useState(false);
   const [transferFailedModal, setTransferFailedModal] = useState(false);
   const [transferSuccessModal, setTransferSuccessModal] = useState(false);
-
-  const handleTransfer = (data) => {
-    setTimeout(() => {
-      setPinModal(true);
-    }, 500);
-  };
+  const [formTransfer, setFormTransfer] = useState({});
 
   usePageTitle("Transfer Detail");
 
@@ -40,6 +35,14 @@ function TransferDetail() {
   const { user } = useSelector((state) => state.userLogin);
 
   const transferTo = users.find((usr) => usr.id === parseInt(userId));
+
+  const handleTransfer = (data) => {
+    setFormTransfer({ id: user.id, pin: user.pin, data, transferTo });
+    setTimeout(() => {
+      setPinModal(true);
+    }, 500);
+  };
+
   return (
     <main className="page-main md:col-span-1 lg:col-span-2">
       <PageHeader
@@ -61,7 +64,7 @@ function TransferDetail() {
             </label>
             <div className="flex flex-col items-center gap-4 p-4 text-center transition-colors bg-gray-50 rounded-xl sm:flex-row sm:text-left sm:gap-6">
               <img
-                src={profile}
+                src={transferTo?.avatar || profile}
                 alt={transferTo?.name}
                 className="object-cover w-15 h-15 rounded-xl shrink-0"
               />
@@ -113,7 +116,7 @@ function TransferDetail() {
                 {...register("amount", {
                   required: "Amount is required",
                   validate: (value) =>
-                    parseInt(user.balance || 0) > parseInt(value) ||
+                    parseInt(user.balance || 0) >= parseInt(value) ||
                     "Insufficient balance",
                 })}
                 type="number"
@@ -163,7 +166,7 @@ function TransferDetail() {
           setPinModal(false);
           setTransferFailedModal(true);
         }}
-        user={user}
+        user={formTransfer}
       />
       <TransferFailedModal
         isOpen={transferFailedModal}
