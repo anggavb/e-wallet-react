@@ -100,7 +100,7 @@ function History() {
                     {item.phone ?? item.type}
                   </span>
                   <span
-                    className={`font-semibold text-sm whitespace-nowrap ${item.isTransfer ? "text-green-500" : "text-red-500"}`}
+                    className={`font-semibold text-sm whitespace-nowrap ${item.type === "top-up" ? "text-green-500" : "text-red-500"}`}
                   >
                     {formatRupiah(item.amount)}
                   </span>
