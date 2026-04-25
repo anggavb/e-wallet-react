@@ -26,7 +26,6 @@ const usersSlice = createSlice({
       }
     },
     updatePassword: (state, { payload }) => {
-      console.log('here');
       state.users = state.users.map((user) =>
         user.id === payload.id ? { ...user, password: payload.password } : user,
       );

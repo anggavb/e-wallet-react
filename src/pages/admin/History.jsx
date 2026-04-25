@@ -29,7 +29,6 @@ function History() {
     }) || [];
   const filtered =
     history?.filter((item) => {
-      console.log(item);
       const q = query.toLowerCase().trim();
       return (
         item.name.toLowerCase().includes(q) ||
